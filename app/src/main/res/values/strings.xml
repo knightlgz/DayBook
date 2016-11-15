@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">流水账</string>
+    <string name="common_submit">提交</string>
+    <string name="db_name">k3daybook</string>
+
+    <!-- Home Page -->
+    <string name="Add">记一笔</string>
+    <string name="Analyze">管理统计</string>
+    <string name="Setting">设置</string>
+
+    <!-- Recording Page -->
+    <string name="recording_amount_hint">金额</string>
+    <string name="recording_type">类型</string>
+    <string name="recording_income">收入</string>
+    <string name="recording_payout">支出</string>
+    <string name="recording_source">源</string>
+    <string name="recording_comment_hint">备注</string>
+
+    <!-- Recording Page Consume Type -->
+    <string-array name="consumes">
+        <item>消费类型</item>
+        <item>衣</item>
+        <item>食</item>
+        <item>住</item>
+        <item>行</item>
+        <item>休闲</item>
+        <item>其他</item>
+        <item>工资</item>
+    </string-array>
+
+    <!-- Management Page -->
+    <string name="management_accounts">账户管理</string>
+    <string name="management_records">收支统计</string>
+
+    <!-- Reminders -->
+    <string name="toast_name_exist">名称已存在</string>
+    <string name="toast_no_type">请选择账户类型</string>
+    <string name="toast_balance_illegal">账户余额非法</string>
+    <string name="toast_expire_illegal">有效日期非法</string>
+    <string name="toast_no_holder">请输入持有人姓名</string>
+    <string name="toast_limit_illegal">透支额度非法</string>
+    <string name="toast_no_amount">请输入金额</string>
+    <string name="toast_no_consume">请选择消费类型</string>
+    <string name="toast_no_payment">请选择支付方式</string>
+    <string name="toast_recording_succeed">成功添加记录</string>
+    <string name="toast_recording_failed">添加记录失败，请重试</string>
+    <string name="toast_add_account_succeed">成功添加账户</string>
+    <string name="toast_add_account_failed">添加账户失败，请重试</string>
+
+    <!-- Accounts Page -->
+    <string name="accounts_add">添加账户</string>
+    <string name="accounts_reset">重置账户</string>
+    <string name="item_valid">有效</string>
+    <string name="item_invalid">无效</string>
+    <string name="parameter_not_mentioned">N/A</string>
+    <string name="account_name">名称: %s</string>
+    <string name="account_balance">余额: %f</string>
+    <string name="account_expire">有效期: %s</string>
+    <string name="account_limit">额度: %s</string>
+
+    <!-- Create Account Page -->
+    <string name="create_account_name">名称</string>
+    <string name="create_account_balance">余额</string>
+    <string name="create_account_type">类型</string>
+    <string name="create_account_holder">持有人</string>
+    <string name="create_account_expire">有效期</string>
+    <string name="create_account_limit">额度</string>
+
+    <string name="create_account_name_hint">请输入名称</string>
+    <string name="create_account_balance_hint">请输入余额</string>
+    <string name="create_account_expire_hint">请输入有效期: YYYYmm</string>
+    <string name="create_account_holder_hint">请输入持有人</string>
+    <string name="create_account_limit_hint">请输入额度</string>
+
+    <!-- Account Type -->
+    <string-array name="account_types">
+        <item>请选择类型</item>
+        <item>现金</item>
+        <item>借记卡</item>
+        <item>信用卡</item>
+        <item>虚拟账户</item>
+    </string-array>
+
+</resources>
