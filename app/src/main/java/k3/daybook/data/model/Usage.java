@@ -14,11 +14,19 @@ public class Usage extends RealmObject{
     private long id;
     private String title;
     private int type;
+    private int times;
 
     public Usage() {
         id = DBUtil.getLatestId(Usage.class) + 1;
         title = "";
         type = -1;
+        times = 0;
+    }
+
+    public void updateUsage(Usage usage) {
+        title = usage.getTitle();
+        type = usage.getType();
+        times = usage.getTimes();
     }
 
     public long getId() {
@@ -43,5 +51,13 @@ public class Usage extends RealmObject{
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getTimes() {
+        return times;
+    }
+
+    public void setTimes(int times) {
+        this.times = times;
     }
 }

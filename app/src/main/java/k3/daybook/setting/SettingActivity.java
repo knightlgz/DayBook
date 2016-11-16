@@ -2,12 +2,15 @@ package k3.daybook.setting;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import k3.daybook.R;
+import k3.daybook.data.manager.AccountManager;
+import k3.daybook.data.manager.UsageManager;
 import k3.daybook.setting.adapter.PaymentAdapter;
 import k3.daybook.setting.adapter.UsageAdapter;
 
@@ -41,9 +44,11 @@ public class SettingActivity extends Activity {
         tvUsage = (TextView) findViewById(R.id.tv_setting_usage_header);
 
         mPaymentAdapter = new PaymentAdapter();
+        lvPayment.setLayoutManager(new LinearLayoutManager(this));
         lvPayment.setAdapter(mPaymentAdapter);
 
         mUsageAdapter = new UsageAdapter();
+        lvUsage.setLayoutManager(new LinearLayoutManager(this));
         lvUsage.setAdapter(mUsageAdapter);
     }
 

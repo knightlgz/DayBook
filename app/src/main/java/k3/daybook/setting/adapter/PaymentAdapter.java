@@ -4,13 +4,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import k3.daybook.util.DataProvider;
+import k3.daybook.data.manager.AccountManager;
 
 /**
  * @author Kyson LEE
  */
 
 public class PaymentAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> {
+
     @Override
     public UsageAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return null;
@@ -23,7 +24,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return DataProvider.getInstance().getPayments().size();
+        return AccountManager.getInstance().getPayments().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

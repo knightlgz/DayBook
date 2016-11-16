@@ -66,22 +66,4 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_setting_usage_header"
-        android:text="@string/tv_setting_usage"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
-
-    <TextView
-        android:id="@+id/tv_setting_payment_header"
-        android:text="@string/tv_setting_payment"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
-
-    <TextView
-        android:id="@+id/tv_setting_list_footer"
-        android:text="@string/tv_setting_add_more"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
-
 </LinearLayout>

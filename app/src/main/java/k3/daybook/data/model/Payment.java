@@ -20,16 +20,21 @@ public class Payment extends RealmObject {
      */
     private String name;
 
+    private int times;
+
     public static final String ID = "id";
     public static final String NAME = "name";
+    public static final String TIMES = "times";
 
     public Payment() {
         id = DBUtil.getLatestId(Payment.class) + 1;
         name = "";
+        times = 0;
     }
 
     public void updateAccount(Payment payment) {
         name = payment.getName();
+        times = payment.getTimes();
     }
 
 
@@ -47,5 +52,13 @@ public class Payment extends RealmObject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getTimes() {
+        return times;
+    }
+
+    public void setTimes(int times) {
+        this.times = times;
     }
 }

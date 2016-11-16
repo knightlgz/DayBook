@@ -8,6 +8,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import k3.daybook.R;
 import k3.daybook.data.model.Account;
+import k3.daybook.data.model.Payment;
 import k3.daybook.data.model.Usage;
 
 /**
@@ -57,5 +58,41 @@ public class DBUtil {
                         .findAllSorted(KEY_ID));
         Log.d(TAG, "getUsages: " + usages);
         return usages;
+    }
+
+    public static void addAnUsage(final Usage usage) {
+        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.insert(usage);
+            }
+        });
+    }
+
+    public static void editUsage(final Usage usage) {
+        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.insertOrUpdate(usage);
+            }
+        });
+    }
+
+    public static void addAPayment(final Payment payment) {
+        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.insert(payment);
+            }
+        });
+    }
+
+    public static void editPayment(final Payment payment) {
+        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.insertOrUpdate(payment);
+            }
+        });
     }
 }

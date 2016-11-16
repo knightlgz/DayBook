@@ -30,6 +30,10 @@ public class Account extends RealmObject{
         payments.addAll(account.getPayments());
     }
 
+    public void addPayment(Payment payment) {
+        payments.add(payment);
+    }
+
     public float getBudget() {
         return budget;
     }
