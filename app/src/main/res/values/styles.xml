@@ -22,4 +22,12 @@
         <item name="android:clickable">true</item>
     </style>
 
+    <style name="TextViewDisplay">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/size_text_display</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/height_text_display</item>
+    </style>
+
 </resources>

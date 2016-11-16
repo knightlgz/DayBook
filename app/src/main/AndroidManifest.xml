@@ -18,21 +18,23 @@
         </activity>
         <activity android:name=".record.RecordingActivity">
         </activity>
-        <activity android:name=".management.ManagementActivity">
+        <activity android:name=".setting.ManagementActivity">
         </activity>
         <activity android:name=".settings.SettingActivity">
         </activity>
-        <activity android:name=".account.AccountsActivity">
+        <activity android:name=".payment.AccountsActivity">
         </activity>
-        <activity android:name=".account.CreateAccountActivity">
+        <activity android:name=".payment.CreateAccountActivity">
         </activity>
-        <activity android:name=".account.EditAccountActivity">
+        <activity android:name=".payment.EditAccountActivity">
         </activity>
-        <activity android:name=".account.AccountLogActivity">
+        <activity android:name=".payment.AccountLogActivity">
         </activity>
         <activity android:name=".record.RecordsActivity">
         </activity>
         <activity android:name=".record.RecordUnitActivity">
+        </activity>
+        <activity android:name=".setting.SettingActivity">
         </activity>
     </application>
 

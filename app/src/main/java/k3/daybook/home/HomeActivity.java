@@ -2,7 +2,6 @@ package k3.daybook.home;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +18,7 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
 
     private final String TAG = "Home";
     private HomePresenter mPresenter = null;
-    private Button mBtnToRecording, mBtnToManagement, mBtnToSetting;
+    private Button mBtnToRecording, mBtnToManagement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +33,9 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
     private void initView() {
         mBtnToRecording = (Button) findViewById(R.id.home_recording);
         mBtnToManagement = (Button) findViewById(R.id.home_management);
-        mBtnToSetting = (Button) findViewById(R.id.home_setting);
 
         mBtnToRecording.setOnClickListener(this);
         mBtnToManagement.setOnClickListener(this);
-        mBtnToSetting.setOnClickListener(this);
     }
 
     private void initPresenter() {
@@ -52,12 +49,7 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
 
     @Override
     public void jumpManagement() {
-        mPresenter.jumpToManagement(this);
-    }
-
-    @Override
-    public void jumpSetting() {
-        mPresenter.jumpToSetting(this);
+        mPresenter.jumpToManage(this);
     }
 
     @Override
@@ -70,10 +62,6 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
             case R.id.home_management:
                 Log.d(TAG, "onClick: jump to management page");
                 jumpManagement();
-                break;
-            case R.id.home_setting:
-                Log.d(TAG, "onClick: jump to setting page");
-                jumpSetting();
                 break;
             default:
                 break;

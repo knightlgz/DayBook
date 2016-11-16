@@ -10,6 +10,4 @@ public interface HomeViews {
 
     void jumpManagement();
 
-    void jumpSetting();
-
 }
