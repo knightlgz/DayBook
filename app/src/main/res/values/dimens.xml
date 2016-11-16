@@ -7,6 +7,7 @@
 
     <dimen name="margin_vertical_home_item">16dp</dimen>
     <dimen name="margin_horizontal_home_item">32dp</dimen>
+    <dimen name="margin_left_text">16dp</dimen>
 
     <dimen name="height_text_display">42dp</dimen>
 

@@ -18,7 +18,7 @@ public class AccountManager {
 
     private static Account sAccount;
 
-    private void initData() {
+    public void initData() {
         if (sAccount == null) {
             sAccount = new Account();
         }
@@ -44,10 +44,6 @@ public class AccountManager {
         return sAccount;
     }
 
-    public float getBudget() {
-        return sAccount.getBudget();
-    }
-
     public List<Payment> getPayments() {
         return sAccount.getPayments();
     }
@@ -56,4 +52,5 @@ public class AccountManager {
         sAccount.addPayment(payment);
         DBUtil.addAPayment(payment);
     }
+
 }

@@ -6,8 +6,8 @@ package k3.daybook.home.view;
 
 public interface HomeViews {
 
-    void jumpRecording();
+    void jumpAnalyze();
 
-    void jumpManagement();
+    void jumpSetting();
 
 }

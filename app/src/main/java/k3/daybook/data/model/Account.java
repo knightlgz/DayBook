@@ -27,7 +27,7 @@ public class Account extends RealmObject{
         id = 0;
         budget = account.getBudget();
         periodDate = account.getPeriodDate();
-        payments.addAll(account.getPayments());
+        payments = account.getPayments();
     }
 
     public void addPayment(Payment payment) {

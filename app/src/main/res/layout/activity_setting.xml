@@ -22,7 +22,7 @@
         <EditText
             android:id="@+id/et_setting_budget"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/height_text_display"
             android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
@@ -39,9 +39,34 @@
         <EditText
             android:id="@+id/et_setting_period_date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/height_text_display"
             android:layout_gravity="center_vertical"
             android:hint="@string/hint_setting_period_date"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_text_display"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/tv_setting_usage"
+            android:textSize="@dimen/size_text_display"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_text_display"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/tv_setting_payment"
+            android:textSize="@dimen/size_text_display"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
@@ -54,15 +79,13 @@
             android:id="@+id/rv_setting_usage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:divider="@color/list_divider"/>
+            android:layout_weight="1"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_setting_payment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:divider="@color/list_divider"/>
+            android:layout_weight="1"/>
 
     </LinearLayout>
 

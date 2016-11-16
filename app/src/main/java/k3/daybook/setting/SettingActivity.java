@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import k3.daybook.R;
 import k3.daybook.data.manager.AccountManager;
@@ -20,7 +19,6 @@ public class SettingActivity extends Activity {
 
     private EditText etBudget, etPeriodDate;
     private RecyclerView lvUsage, lvPayment;
-    private TextView tvUsage, tvPayment, tvAddMore;
 
     private PaymentAdapter mPaymentAdapter;
     private UsageAdapter mUsageAdapter;
@@ -31,7 +29,14 @@ public class SettingActivity extends Activity {
         setContentView(R.layout.activity_setting);
 
         Log.d(TAG, "onCreate: -----------------");
+        initData();
         initView();
+        decorateView();
+    }
+
+    private void initData() {
+        AccountManager.getInstance().initData();
+        UsageManager.getInstance().initData();
     }
 
     private void initView() {
@@ -39,17 +44,30 @@ public class SettingActivity extends Activity {
         etPeriodDate = (EditText) findViewById(R.id.et_setting_period_date);
         lvUsage = (RecyclerView) findViewById(R.id.rv_setting_usage);
         lvPayment = (RecyclerView) findViewById(R.id.rv_setting_payment);
-        tvAddMore = (TextView) findViewById(R.id.tv_setting_list_footer);
-        tvPayment = (TextView) findViewById(R.id.tv_setting_payment_header);
-        tvUsage = (TextView) findViewById(R.id.tv_setting_usage_header);
 
         mPaymentAdapter = new PaymentAdapter();
         lvPayment.setLayoutManager(new LinearLayoutManager(this));
-        lvPayment.setAdapter(mPaymentAdapter);
+        lvPayment.setAdapter(mPaymentAdapter = new PaymentAdapter());
 
         mUsageAdapter = new UsageAdapter();
         lvUsage.setLayoutManager(new LinearLayoutManager(this));
-        lvUsage.setAdapter(mUsageAdapter);
+        lvUsage.setAdapter(mUsageAdapter = new UsageAdapter());
+
+    }
+
+    private void decorateView() {
+        float budget = AccountManager.getInstance().getAccount().getBudget();
+        if (budget > 0) {
+            etBudget.setText(String.valueOf(budget));
+            etBudget.setBackground(null);
+            etBudget.setCursorVisible(false);
+        }
+        int date = AccountManager.getInstance().getAccount().getPeriodDate();
+        if (date > 0 && date < 29) {
+            etPeriodDate.setText(String.valueOf(date));
+            etPeriodDate.setBackground(null);
+            etPeriodDate.setCursorVisible(false);
+        }
     }
 
     @Override

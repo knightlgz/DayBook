@@ -4,8 +4,8 @@
     <string name="db_name">k3daybook</string>
 
     <!-- Home Page -->
-    <string name="home_add">记一笔</string>
-    <string name="home_analyze">管理统计</string>
+    <string name="home_analyze">分析</string>
+    <string name="home_setting">设置</string>
 
     <!-- Manage Page -->
     <string name="tv_setting_budget">每月预算: </string>

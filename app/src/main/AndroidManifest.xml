@@ -16,25 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".record.RecordingActivity">
-        </activity>
-        <activity android:name=".setting.ManagementActivity">
-        </activity>
-        <activity android:name=".settings.SettingActivity">
-        </activity>
-        <activity android:name=".payment.AccountsActivity">
-        </activity>
-        <activity android:name=".payment.CreateAccountActivity">
-        </activity>
-        <activity android:name=".payment.EditAccountActivity">
-        </activity>
-        <activity android:name=".payment.AccountLogActivity">
-        </activity>
-        <activity android:name=".record.RecordsActivity">
-        </activity>
-        <activity android:name=".record.RecordUnitActivity">
-        </activity>
-        <activity android:name=".setting.SettingActivity">
+        <activity
+            android:name=".setting.SettingActivity"
+            android:windowSoftInputMode="stateHidden|stateUnchanged">
         </activity>
     </application>
 

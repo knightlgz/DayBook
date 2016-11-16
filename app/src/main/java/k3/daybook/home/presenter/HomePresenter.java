@@ -13,12 +13,7 @@ public class HomePresenter {
 
     private Intent mIntent = null;
 
-    public void jumpToRecording(Context context) {
-        // mIntent = new Intent(context, RecordingActivity.class);
-        // context.startActivity(mIntent);
-    }
-
-    public void jumpToManage(Context context) {
+    public void jumpToSetting(Context context) {
         mIntent = new Intent(context, SettingActivity.class);
         context.startActivity(mIntent);
     }

@@ -31,8 +31,8 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
     }
 
     private void initView() {
-        mBtnToRecording = (Button) findViewById(R.id.home_recording);
-        mBtnToManagement = (Button) findViewById(R.id.home_management);
+        mBtnToRecording = (Button) findViewById(R.id.home_analyze);
+        mBtnToManagement = (Button) findViewById(R.id.home_setting);
 
         mBtnToRecording.setOnClickListener(this);
         mBtnToManagement.setOnClickListener(this);
@@ -43,25 +43,24 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
     }
 
     @Override
-    public void jumpRecording() {
-        mPresenter.jumpToRecording(this);
+    public void jumpAnalyze() {
     }
 
     @Override
-    public void jumpManagement() {
-        mPresenter.jumpToManage(this);
+    public void jumpSetting() {
+        mPresenter.jumpToSetting(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.home_recording:
-                Log.d(TAG, "onClick: jump to recording page");
-                jumpRecording();
+            case R.id.home_analyze:
+                Log.d(TAG, "onClick: jump to analyze page");
+                jumpAnalyze();
                 break;
-            case R.id.home_management:
-                Log.d(TAG, "onClick: jump to management page");
-                jumpManagement();
+            case R.id.home_setting:
+                Log.d(TAG, "onClick: jump to setting page");
+                jumpSetting();
                 break;
             default:
                 break;

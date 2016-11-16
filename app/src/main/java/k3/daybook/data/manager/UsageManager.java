@@ -20,13 +20,13 @@ public class UsageManager {
 
     private static List<Usage> sUsages;
 
-    private void initData() {
+    public void initData() {
         if (sUsages == null) {
             sUsages = new ArrayList<>();
         } else {
             sUsages.clear();
         }
-        sUsages.addAll(DBUtil.getUsages());
+        sUsages=DBUtil.getUsages();
         Log.d(TAG, "initData: " + sUsages);
     }
 
