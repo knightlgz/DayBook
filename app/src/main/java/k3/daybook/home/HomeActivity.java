@@ -1,10 +1,10 @@
 package k3.daybook.home;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 
 import k3.daybook.R;
 import k3.daybook.home.presenter.HomePresenter;
@@ -14,11 +14,11 @@ import k3.daybook.home.view.HomeViews;
  * @author Kyson LEE
  */
 
-public class HomeActivity extends Activity implements HomeViews, View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements HomeViews, View.OnClickListener {
 
     private final String TAG = "Home";
     private HomePresenter mPresenter = null;
-    private Button mBtnToRecording, mBtnToManagement;
+    private ImageView mBtnToAnalyze, mBtnToSetting, mBtnToAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +31,13 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
     }
 
     private void initView() {
-        mBtnToRecording = (Button) findViewById(R.id.home_analyze);
-        mBtnToManagement = (Button) findViewById(R.id.home_setting);
+        mBtnToAnalyze = (ImageView) findViewById(R.id.home_analyze);
+        mBtnToSetting = (ImageView) findViewById(R.id.home_setting);
+        mBtnToAdd = (ImageView) findViewById(R.id.home_add);
 
-        mBtnToRecording.setOnClickListener(this);
-        mBtnToManagement.setOnClickListener(this);
+        mBtnToAnalyze.setOnClickListener(this);
+        mBtnToSetting.setOnClickListener(this);
+        mBtnToAdd.setOnClickListener(this);
     }
 
     private void initPresenter() {
@@ -52,19 +54,25 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.home_analyze:
-                Log.d(TAG, "onClick: jump to analyze page");
-                jumpAnalyze();
-                break;
-            case R.id.home_setting:
-                Log.d(TAG, "onClick: jump to setting page");
-                jumpSetting();
-                break;
-            default:
-                break;
-        }
+    public void confirmAdd() {
+
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+        case R.id.home_analyze:
+            Log.d(TAG, "onClick: jump to analyze page");
+            jumpAnalyze();
+            break;
+        case R.id.home_setting:
+            Log.d(TAG, "onClick: jump to setting page");
+            jumpSetting();
+            break;
+        case R.id.home_add:
+            break;
+        default:
+            break;
+        }
+    }
 }

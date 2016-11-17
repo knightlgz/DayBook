@@ -10,20 +10,36 @@
     android:paddingTop="@dimen/margin_vertical_home_item"
     tools:context="k3.daybook.home.HomeActivity">
 
-    <Button
+    <ImageView
         android:id="@+id/home_analyze"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/size_home_icon"
+        android:layout_height="@dimen/size_home_icon"
+        android:layout_marginBottom="@dimen/margin_vertical_home_item"
+        android:layout_marginStart="@dimen/margin_horizontal_home_item"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:text="@string/home_analyze"/>
+        android:clickable="true"
+        android:src="@mipmap/ic_analyze"
+        android:layout_alignParentStart="true"/>
 
-    <Button
+    <ImageView
+        android:id="@+id/home_add"
+        android:layout_width="@dimen/size_home_add"
+        android:layout_height="@dimen/size_home_add"
+        android:layout_alignParentBottom="true"
+        android:src="@mipmap/ic_add"
+        android:clickable="true"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageView
         android:id="@+id/home_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/size_home_icon"
+        android:layout_height="@dimen/size_home_icon"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:clickable="true"
+        android:layout_marginBottom="@dimen/margin_vertical_home_item"
+        android:layout_marginEnd="@dimen/margin_horizontal_home_item"
+        android:src="@mipmap/ic_setting"
         android:text="@string/home_setting"/>
 
 </RelativeLayout>

@@ -6,7 +6,7 @@
     <dimen name="text_size_home_item">30dp</dimen>
 
     <dimen name="margin_vertical_home_item">16dp</dimen>
-    <dimen name="margin_horizontal_home_item">32dp</dimen>
+    <dimen name="margin_horizontal_home_item">16dp</dimen>
     <dimen name="margin_left_text">16dp</dimen>
 
     <dimen name="height_text_display">42dp</dimen>
@@ -14,4 +14,6 @@
 
     <dimen name="size_text_display">16dp</dimen>
 
+    <dimen name="size_home_icon">50dp</dimen>
+    <dimen name="size_home_add">82dp</dimen>
 </resources>
