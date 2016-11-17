@@ -76,8 +76,8 @@ public class SettingActivity extends Activity {
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume: -----------------");
-        mPaymentAdapter.notifyDataSetChanged();
-        mUsageAdapter.notifyDataSetChanged();
+//        mPaymentAdapter.notifyDataSetChanged();
+//        mUsageAdapter.notifyDataSetChanged();
     }
 
     @Override

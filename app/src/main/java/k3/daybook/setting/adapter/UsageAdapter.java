@@ -49,6 +49,7 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 UsageManager.getInstance().deleteUsage(position);
+//                notifyDataSetChanged();
             }
         });
     }

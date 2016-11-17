@@ -49,6 +49,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 AccountManager.getInstance().deleteAPayment(position);
+//                notifyDataSetChanged();
             }
         });
     }

@@ -124,6 +124,7 @@ public class DBUtil {
                 realm.insert(usage);
             }
         });
+        Log.d(TAG, "addAnUsage: " + usage);
     }
 
     private static void addUsages(final List<Usage> usages) {
@@ -142,6 +143,7 @@ public class DBUtil {
                 realm.insertOrUpdate(usage);
             }
         });
+        Log.d(TAG, "updateUsage: " + usage);
     }
 
     public static void updateAllUsages(final List<Usage> usages) {
@@ -151,6 +153,7 @@ public class DBUtil {
                 realm.insertOrUpdate(usages);
             }
         });
+        Log.d(TAG, "updateAllUsages: " + usages);
     }
 
     public static void deleteUsage(final Usage usage) {
@@ -160,6 +163,7 @@ public class DBUtil {
                 usage.deleteFromRealm();
             }
         });
+        Log.d(TAG, "deleteUsage: " + usage);
     }
 
     public static void updateAccount(final Account account) {
@@ -169,5 +173,6 @@ public class DBUtil {
                 realm.insertOrUpdate(account);
             }
         });
+        Log.d(TAG, "updateAccount: " + account);
     }
 }

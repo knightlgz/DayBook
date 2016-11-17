@@ -1,7 +1,7 @@
 package k3.daybook.home;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,7 +14,7 @@ import k3.daybook.home.view.HomeViews;
  * @author Kyson LEE
  */
 
-public class HomeActivity extends AppCompatActivity implements HomeViews, View.OnClickListener {
+public class HomeActivity extends Activity implements HomeViews, View.OnClickListener {
 
     private final String TAG = "Home";
     private HomePresenter mPresenter = null;
