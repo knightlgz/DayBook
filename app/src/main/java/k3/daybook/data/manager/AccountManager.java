@@ -44,13 +44,29 @@ public class AccountManager {
         return sAccount;
     }
 
-    public List<Payment> getPayments() {
-        return sAccount.getPayments();
+    public Payment getAPayment(int index) {
+        return sAccount.getPayments().get(index);
+    }
+
+    public int getPaymentSize() {
+        return sAccount.getPayments().size();
+    }
+
+    public void renamePayment(String name, int index) {
+        sAccount.renamePayment(name, index);
     }
 
     public void addAPayment(Payment payment) {
         sAccount.addPayment(payment);
-        DBUtil.addAPayment(payment);
+        DBUtil.updateAccount(sAccount);
     }
 
+    public void deleteAPayment(int index) {
+        sAccount.deletePayment(index);
+        DBUtil.updateAccount(sAccount);
+    }
+
+    public void storeData() {
+        DBUtil.updateAccount(sAccount);
+    }
 }

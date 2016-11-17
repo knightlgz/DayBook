@@ -29,6 +29,10 @@ public class Usage extends RealmObject{
         times = usage.getTimes();
     }
 
+    public void renameUsage(String name) {
+        title = name;
+    }
+
     public long getId() {
         return id;
     }

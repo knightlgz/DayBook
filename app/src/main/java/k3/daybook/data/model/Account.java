@@ -34,6 +34,14 @@ public class Account extends RealmObject{
         payments.add(payment);
     }
 
+    public void deletePayment(int index) {
+        payments.remove(index);
+    }
+
+    public void renamePayment(String title, int index) {
+        payments.get(index).rename(title);
+    }
+
     public float getBudget() {
         return budget;
     }

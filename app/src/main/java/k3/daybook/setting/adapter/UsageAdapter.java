@@ -1,10 +1,13 @@
 package k3.daybook.setting.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import k3.daybook.R;
 import k3.daybook.data.manager.UsageManager;
@@ -25,22 +28,45 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mUsageName.setText(UsageManager.getInstance().getUsages().get(position).getTitle());
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        holder.mUsageName.setText(UsageManager.getInstance().getAnUsage(position).getTitle());
+        holder.mUsageName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                UsageManager.getInstance().renameUsage(holder.mUsageName.getText().toString(),
+                        position);
+            }
+        });
+        holder.mUsageDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UsageManager.getInstance().deleteUsage(position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return UsageManager.getInstance().getUsages().size();
+        return UsageManager.getInstance().getUsageSize();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         EditText mUsageName;
+        ImageView mUsageDelete;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mUsageName = (EditText) itemView.findViewById(R.id.item_usage_name);
+            mUsageDelete = (ImageView) itemView.findViewById(R.id.item_usage_delete);
         }
     }
 }

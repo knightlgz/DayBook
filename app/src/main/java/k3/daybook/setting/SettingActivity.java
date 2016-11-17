@@ -37,6 +37,8 @@ public class SettingActivity extends Activity {
     private void initData() {
         AccountManager.getInstance().initData();
         UsageManager.getInstance().initData();
+        mPaymentAdapter = new PaymentAdapter();
+        mUsageAdapter = new UsageAdapter();
     }
 
     private void initView() {
@@ -47,11 +49,11 @@ public class SettingActivity extends Activity {
 
         mPaymentAdapter = new PaymentAdapter();
         lvPayment.setLayoutManager(new LinearLayoutManager(this));
-        lvPayment.setAdapter(mPaymentAdapter = new PaymentAdapter());
+        lvPayment.setAdapter(mPaymentAdapter);
 
         mUsageAdapter = new UsageAdapter();
         lvUsage.setLayoutManager(new LinearLayoutManager(this));
-        lvUsage.setAdapter(mUsageAdapter = new UsageAdapter());
+        lvUsage.setAdapter(mUsageAdapter);
 
     }
 
@@ -71,16 +73,19 @@ public class SettingActivity extends Activity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause: -----------------");
-        // TODO: 2016/11/15 save the local setting to data provider
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: -----------------");
+        mPaymentAdapter.notifyDataSetChanged();
+        mUsageAdapter.notifyDataSetChanged();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: -----------------");
-        // TODO: 2016/11/15 save the data provider to db
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: -----------------");
+        AccountManager.getInstance().storeData();
+        UsageManager.getInstance().storeData();
     }
+
 }

@@ -45,8 +45,12 @@ public class UsageManager {
         return sInstance;
     }
 
-    public List<Usage> getUsages() {
-        return sUsages;
+    public Usage getAnUsage(int index) {
+        return sUsages.get(index);
+    }
+
+    public int getUsageSize() {
+        return sUsages.size();
     }
 
     public void addAnUsage(Usage usage) {
@@ -54,8 +58,17 @@ public class UsageManager {
         DBUtil.addAnUsage(usage);
     }
 
-    public void editUsage(int position, Usage newUsage) {
-        sUsages.get(position).updateUsage(newUsage);
-        DBUtil.editUsage(newUsage);
+    public void renameUsage(String name, int index) {
+        sUsages.get(index).renameUsage(name);
+        DBUtil.updateUsage(sUsages.get(index));
+    }
+
+    public void deleteUsage(int index) {
+        DBUtil.deleteUsage(sUsages.get(index));
+        sUsages.remove(index);
+    }
+
+    public void storeData() {
+        DBUtil.updateAllUsages(sUsages);
     }
 }

@@ -1,10 +1,13 @@
 package k3.daybook.setting.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import k3.daybook.R;
 import k3.daybook.data.manager.AccountManager;
@@ -25,23 +28,45 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(PaymentAdapter.ViewHolder holder, int position) {
-        holder.mPaymentName.setText(AccountManager.getInstance().getPayments().get(position)
-                .getName());
+    public void onBindViewHolder(final PaymentAdapter.ViewHolder holder, final int position) {
+        holder.mPaymentName.setText(AccountManager.getInstance().getAPayment(position).getName());
+        holder.mPaymentName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                AccountManager.getInstance().renamePayment(
+                        holder.mPaymentName.getText().toString(), position);
+            }
+        });
+        holder.mPaymentDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AccountManager.getInstance().deleteAPayment(position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return AccountManager.getInstance().getPayments().size();
+        return AccountManager.getInstance().getPaymentSize();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         EditText mPaymentName;
+        ImageView mPaymentDelete;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             mPaymentName = (EditText) itemView.findViewById(R.id.item_payment_name);
+            mPaymentDelete = (ImageView) itemView.findViewById(R.id.item_payment_delete);
         }
     }
 }

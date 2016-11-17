@@ -2,15 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="@dimen/height_setting_item"
-              android:orientation="vertical">
+              android:orientation="horizontal">
 
     <EditText
         android:id="@+id/item_payment_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="@dimen/height_setting_item"
         android:layout_marginStart="@dimen/margin_left_text"
         android:background="@null"
         android:inputType="text"
         android:textColor="@color/color_text"/>
+
+    <ImageView
+        android:id="@+id/item_payment_delete"
+        android:clickable="true"
+        android:src="@mipmap/ic_delete"
+        android:layout_width="@dimen/height_setting_item"
+        android:layout_height="@dimen/height_setting_item"/>
 
 </LinearLayout>

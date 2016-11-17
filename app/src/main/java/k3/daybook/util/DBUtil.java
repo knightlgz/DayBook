@@ -135,7 +135,7 @@ public class DBUtil {
         });
     }
 
-    public static void editUsage(final Usage usage) {
+    public static void updateUsage(final Usage usage) {
         Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -144,25 +144,25 @@ public class DBUtil {
         });
     }
 
-    public static void addAPayment(final Payment payment) {
+    public static void updateAllUsages(final List<Usage> usages) {
         Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                realm.insert(payment);
+                realm.insertOrUpdate(usages);
             }
         });
     }
 
-    public static void editPayment(final Payment payment) {
+    public static void deleteUsage(final Usage usage) {
         Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                realm.insertOrUpdate(payment);
+                usage.deleteFromRealm();
             }
         });
     }
 
-    private static void updateAccount(final Account account) {
+    public static void updateAccount(final Account account) {
         Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {

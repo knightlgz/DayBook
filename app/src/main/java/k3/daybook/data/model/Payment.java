@@ -37,6 +37,9 @@ public class Payment extends RealmObject {
         times = payment.getTimes();
     }
 
+    public void rename(String title) {
+        name = title;
+    }
 
     public long getId() {
         return id;
