@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import k3.daybook.R;
-import k3.daybook.data.manager.UsageManager;
+import k3.daybook.data.manager.AccountManager;
 import k3.daybook.util.ContextProvider;
 
 /**
@@ -29,7 +29,7 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.mUsageName.setText(UsageManager.getInstance().getAnUsage(position).getTitle());
+        holder.mUsageName.setText(AccountManager.getInstance().getUsageNameList().get(position));
         holder.mUsageName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -41,22 +41,22 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
 
             @Override
             public void afterTextChanged(Editable s) {
-                UsageManager.getInstance().renameUsage(holder.mUsageName.getText().toString(),
-                        position);
+                AccountManager.getInstance().renameUsageByIndex(
+                        holder.mUsageName.getText().toString(), position);
             }
         });
         holder.mUsageDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UsageManager.getInstance().deleteUsage(position);
-//                notifyDataSetChanged();
+                AccountManager.getInstance().deleteUsageByIndex(position);
+                notifyDataSetChanged();
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return UsageManager.getInstance().getUsageSize();
+        return AccountManager.getInstance().getUsageNameList().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

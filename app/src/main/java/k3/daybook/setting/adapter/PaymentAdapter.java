@@ -29,7 +29,8 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final PaymentAdapter.ViewHolder holder, final int position) {
-        holder.mPaymentName.setText(AccountManager.getInstance().getAPayment(position).getName());
+        holder.mPaymentName
+                .setText(AccountManager.getInstance().getPaymentNameList().get(position));
         holder.mPaymentName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -41,22 +42,22 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
             @Override
             public void afterTextChanged(Editable s) {
-                AccountManager.getInstance().renamePayment(
+                AccountManager.getInstance().renamePaymentByIndex(
                         holder.mPaymentName.getText().toString(), position);
             }
         });
         holder.mPaymentDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccountManager.getInstance().deleteAPayment(position);
-//                notifyDataSetChanged();
+                AccountManager.getInstance().deletePaymentByIndex(position);
+                notifyDataSetChanged();
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return AccountManager.getInstance().getPaymentSize();
+        return AccountManager.getInstance().getPaymentNameList().size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

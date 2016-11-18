@@ -12,25 +12,27 @@ public class Usage extends RealmObject{
 
     @PrimaryKey
     private long id;
-    private String title;
-    private int type;
+
+    private String name;
     private int times;
+
+    private int type;
 
     public Usage() {
         id = DBUtil.getLatestId(Usage.class) + 1;
-        title = "";
+        name = "";
         type = -1;
         times = 0;
     }
 
     public void updateUsage(Usage usage) {
-        title = usage.getTitle();
+        name = usage.getName();
         type = usage.getType();
         times = usage.getTimes();
     }
 
     public void renameUsage(String name) {
-        title = name;
+        this.name = name;
     }
 
     public long getId() {
@@ -41,12 +43,20 @@ public class Usage extends RealmObject{
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getTimes() {
+        return times;
+    }
+
+    public void setTimes(int times) {
+        this.times = times;
     }
 
     public int getType() {
@@ -57,11 +67,13 @@ public class Usage extends RealmObject{
         this.type = type;
     }
 
-    public int getTimes() {
-        return times;
-    }
-
-    public void setTimes(int times) {
-        this.times = times;
+    @Override
+    public String toString() {
+        return "Usage{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", times=" + times +
+                ", type=" + type +
+                '}';
     }
 }

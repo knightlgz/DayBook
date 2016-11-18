@@ -7,6 +7,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmModel;
 import k3.daybook.R;
 import k3.daybook.data.model.Account;
 import k3.daybook.data.model.Payment;
@@ -21,6 +22,7 @@ public class DBUtil {
     private static final String TAG = "Realm Operations";
 
     private static final String KEY_ID = "id";
+    private static final String KEY_NAME = "name";
 
     public static void initRealm() {
         Realm.init(ContextProvider.getApplicationContext());
@@ -41,13 +43,14 @@ public class DBUtil {
         return target.longValue();
     }
 
+    /**
+     * Common Getters
+     */
     public static Account getAccount() {
         Account account = Realm.getDefaultInstance().where(Account.class).findFirst();
-
-        if (true) {
+        if (account == null) {
             account = demoAccount();
-            Log.d(TAG, "getAccount: " + account);
-            updateAccount(account);
+            Log.d(TAG, "getAccount: empty db, demoed data: " + account);
             return account;
         } else {
             Log.d(TAG, "getAccount: " + account);
@@ -55,35 +58,11 @@ public class DBUtil {
         }
     }
 
-    private static Account demoAccount() {
-        Account demo = new Account();
-        demo.setBudget(1000);
-        demo.setPeriodDate(9);
-
-        Payment method = new Payment();
-        method.setId(0);
-        method.setName("cash");
-        demo.addPayment(method);
-
-        method = new Payment();
-        method.setId(1);
-        method.setName("alipay");
-        demo.addPayment(method);
-
-        method = new Payment();
-        method.setId(2);
-        method.setName("wechat");
-        demo.addPayment(method);
-
-        return demo;
-    }
-
     public static List<Usage> getUsages() {
-        List<Usage> usages = Realm.getDefaultInstance().where(Usage.class).findAllSorted(KEY_ID);
-        if (true) {
-            usages = demoUsage();
-            addUsages(usages);
-            Log.d(TAG, "getUsages: " + usages);
+        List<Usage> usages = Realm.getDefaultInstance().where(Usage.class).findAll();
+        if (usages.size() == 0) {
+            usages = demoUsages();
+            Log.d(TAG, "getUsages: empty db, demoed data: " + usages);
             return usages;
         } else {
             Log.d(TAG, "getUsages: " + usages);
@@ -91,88 +70,215 @@ public class DBUtil {
         }
     }
 
-    private static List<Usage> demoUsage() {
-        List<Usage> demo = new ArrayList<>();
-
-        Usage tem = new Usage();
-        tem.setId(0);
-        tem.setTitle("Leisure");
-        demo.add(tem);
-
-        tem = new Usage();
-        tem.setId(1);
-        tem.setTitle("Feeding");
-        demo.add(tem);
-
-        tem = new Usage();
-        tem.setId(2);
-        tem.setTitle("Toys");
-        demo.add(tem);
-
-        tem = new Usage();
-        tem.setId(3);
-        tem.setTitle("EXs");
-        demo.add(tem);
-
-        return demo;
+    public static List<Payment> getPayments() {
+        List<Payment> payments = Realm.getDefaultInstance().where(Payment.class).findAll();
+        if (payments.size() == 0) {
+            payments = demoPayments();
+            Log.d(TAG, "getPayments: empty db, demoed data: " + payments);
+            return payments;
+        } else {
+            Log.d(TAG, "getPayments: " + payments);
+            return Realm.getDefaultInstance().copyFromRealm(payments);
+        }
     }
 
-    public static void addAnUsage(final Usage usage) {
-        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+    /**
+     * Common Updater
+     */
+    public static void updateAmmount(final Account newAccount) {
+        final Account account = Realm.getDefaultInstance().where(Account.class).findFirst();
+        Realm.getDefaultInstance().executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                realm.insert(usage);
+                account.updateAccount(newAccount);
             }
-        });
-        Log.d(TAG, "addAnUsage: " + usage);
-    }
-
-    private static void addUsages(final List<Usage> usages) {
-        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+        }, new Realm.Transaction.OnSuccess() {
             @Override
-            public void execute(Realm realm) {
-                realm.insertOrUpdate(usages);
+            public void onSuccess() {
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+
             }
         });
     }
 
-    public static void updateUsage(final Usage usage) {
-        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+    public static void updateUsages(final List<Usage> newUsages) {
+        Realm.getDefaultInstance().executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                realm.insertOrUpdate(usage);
+                for (Usage tem : newUsages) {
+                    Usage usage = Realm.getDefaultInstance().where(Usage.class)
+                            .equalTo(KEY_ID, tem.getId()).findFirst();
+                    usage.updateUsage(tem);
+                }
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+
             }
         });
-        Log.d(TAG, "updateUsage: " + usage);
     }
 
-    public static void updateAllUsages(final List<Usage> usages) {
-        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+    public static void updatePayments(final List<Payment> newPayments) {
+        Realm.getDefaultInstance().executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                realm.insertOrUpdate(usages);
+                for (Payment tem : newPayments) {
+                    Payment payment = Realm.getDefaultInstance().where(Payment.class)
+                            .equalTo(KEY_ID, tem.getId()).findFirst();
+                    payment.updatePayment(tem);
+                }
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+
             }
         });
-        Log.d(TAG, "updateAllUsages: " + usages);
     }
 
-    public static void deleteUsage(final Usage usage) {
-        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+    /**
+     * Common Demo Init
+     */
+    private static Account demoAccount() {
+        Account account = new Account();
+        account.setPeriodDate(10);
+        account.setBudget(3000);
+        account.refreshUsageNames(demoUsages());
+        account.refreshPaymentNames(demoPayments());
+
+        return account;
+    }
+
+    private static List<Usage> demoUsages() {
+        List<Usage> list = new ArrayList<>();
+
+        Usage usage = new Usage();
+        usage.setId(0);
+        usage.setName("Rent");
+        list.add(usage);
+
+        usage = new Usage();
+        usage.setId(1);
+        usage.setName("Food");
+        list.add(usage);
+
+        usage = new Usage();
+        usage.setId(2);
+        usage.setName("Toys");
+        list.add(usage);
+
+        usage = new Usage();
+        usage.setId(3);
+        usage.setName("4EXs");
+        list.add(usage);
+
+        return list;
+    }
+
+    private static List<Payment> demoPayments() {
+        List<Payment> list = new ArrayList<>();
+
+        Payment payment = new Payment();
+        payment.setId(0);
+        payment.setName("Cash");
+        list.add(payment);
+
+        payment = new Payment();
+        payment.setId(1);
+        payment.setName("alipay");
+        list.add(payment);
+
+        payment = new Payment();
+        payment.setId(2);
+        payment.setName("wechat");
+        list.add(payment);
+
+        payment = new Payment();
+        payment.setId(3);
+        payment.setName("Credit Card");
+        list.add(payment);
+
+        payment = new Payment();
+        payment.setId(4);
+        payment.setName("Debit Card");
+        list.add(payment);
+
+        return list;
+    }
+
+    /**
+     * Common Detector
+     */
+    public static boolean isNameExist(String name, Class cls) {
+        RealmModel result = Realm.getDefaultInstance().where(cls).equalTo(KEY_NAME, name)
+                .findFirst();
+        return result != null;
+    }
+
+    /**
+     * Conditional Delete
+     */
+    public static void deleteUsageByName(String name) {
+        final Usage usage = Realm.getDefaultInstance().where(Usage.class).equalTo(KEY_NAME, name)
+                .findFirst();
+        if (usage == null) {
+            return;
+        }
+        Realm.getDefaultInstance().executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 usage.deleteFromRealm();
             }
-        });
-        Log.d(TAG, "deleteUsage: " + usage);
-    }
-
-    public static void updateAccount(final Account account) {
-        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+        }, new Realm.Transaction.OnSuccess() {
             @Override
-            public void execute(Realm realm) {
-                realm.insertOrUpdate(account);
+            public void onSuccess() {
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+
             }
         });
-        Log.d(TAG, "updateAccount: " + account);
     }
+
+    public static void deletePaymentByName(String name) {
+        final Payment payment = Realm.getDefaultInstance().where(Payment.class)
+                .equalTo(KEY_NAME, name).findFirst();
+        if (payment == null) {
+            return;
+        }
+        Realm.getDefaultInstance().executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                payment.deleteFromRealm();
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        });
+    }
+
 }

@@ -9,7 +9,6 @@ import android.widget.EditText;
 
 import k3.daybook.R;
 import k3.daybook.data.manager.AccountManager;
-import k3.daybook.data.manager.UsageManager;
 import k3.daybook.setting.adapter.PaymentAdapter;
 import k3.daybook.setting.adapter.UsageAdapter;
 
@@ -35,8 +34,6 @@ public class SettingActivity extends Activity {
     }
 
     private void initData() {
-        AccountManager.getInstance().initData();
-        UsageManager.getInstance().initData();
         mPaymentAdapter = new PaymentAdapter();
         mUsageAdapter = new UsageAdapter();
     }
@@ -76,16 +73,18 @@ public class SettingActivity extends Activity {
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume: -----------------");
-//        mPaymentAdapter.notifyDataSetChanged();
-//        mUsageAdapter.notifyDataSetChanged();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause: -----------------");
-        AccountManager.getInstance().storeData();
-        UsageManager.getInstance().storeData();
+        AccountManager.getInstance().storeDataToDB();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: -----------------");
+    }
 }

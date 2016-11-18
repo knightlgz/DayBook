@@ -1,6 +1,7 @@
 package k3.daybook.data.model;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 import k3.daybook.util.DBUtil;
 
 /**
@@ -8,23 +9,11 @@ import k3.daybook.util.DBUtil;
  */
 public class Payment extends RealmObject {
 
-    // the primary key of the table account
-    /**
-     * the unique id for an account
-     */
+    @PrimaryKey
     private long id;
 
-    // the non-null content for the table
-    /**
-     * the unique name to be shown as the account
-     */
     private String name;
-
     private int times;
-
-    public static final String ID = "id";
-    public static final String NAME = "name";
-    public static final String TIMES = "times";
 
     public Payment() {
         id = DBUtil.getLatestId(Payment.class) + 1;
@@ -32,7 +21,7 @@ public class Payment extends RealmObject {
         times = 0;
     }
 
-    public void updateAccount(Payment payment) {
+    public void updatePayment(Payment payment) {
         name = payment.getName();
         times = payment.getTimes();
     }
@@ -63,5 +52,14 @@ public class Payment extends RealmObject {
 
     public void setTimes(int times) {
         this.times = times;
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", times=" + times +
+                '}';
     }
 }
