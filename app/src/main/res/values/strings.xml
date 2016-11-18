@@ -13,6 +13,6 @@
     <string name="hint_setting_period_date"> 1 ~ 28 </string>
     <string name="tv_setting_usage">消费方式: </string>
     <string name="tv_setting_payment">支付方式: </string>
-    <string name="tv_setting_add_more">添加更多</string>
+    <string name="tv_setting_add_more">--添加更多--</string>
 
 </resources>

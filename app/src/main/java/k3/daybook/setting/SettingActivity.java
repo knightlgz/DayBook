@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.widget.EditText;
 
 import k3.daybook.R;
@@ -50,13 +51,14 @@ public class SettingActivity extends Activity {
         lvPayment.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL_LIST));
         lvPayment.setAdapter(mPaymentAdapter);
+        mPaymentAdapter.setFooterView(LayoutInflater.from(this).inflate(R.layout.footer_append, lvPayment, false));
 
         mUsageAdapter = new UsageAdapter();
         lvUsage.setLayoutManager(new LinearLayoutManager(this));
         lvUsage.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL_LIST));
         lvUsage.setAdapter(mUsageAdapter);
-
+        mUsageAdapter.setFooterView(LayoutInflater.from(this).inflate(R.layout.footer_append, lvPayment, false));
     }
 
     private void decorateView() {

@@ -38,6 +38,8 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
         mBtnToAnalyze.setOnClickListener(this);
         mBtnToSetting.setOnClickListener(this);
         mBtnToAdd.setOnClickListener(this);
+
+        mBtnToAdd.setEnabled(false);
     }
 
     private void initPresenter() {

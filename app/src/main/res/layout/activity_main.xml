@@ -26,7 +26,7 @@
         android:layout_width="@dimen/size_home_add"
         android:layout_height="@dimen/size_home_add"
         android:layout_alignParentBottom="true"
-        android:src="@mipmap/ic_add"
+        android:src="@drawable/home_add_seletor"
         android:clickable="true"
         android:layout_centerHorizontal="true"/>
 

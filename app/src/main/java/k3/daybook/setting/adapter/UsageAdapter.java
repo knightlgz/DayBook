@@ -18,9 +18,29 @@ import k3.daybook.util.ContextProvider;
  */
 
 public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> {
+    private final int TYPE_ITEM = 0;
+    private final int TYPE_FOOTER = 1;
+
+    private View mFooterView;
+
+    public void setFooterView(View footerView) {
+        mFooterView = footerView;
+        notifyItemInserted(getItemCount() - 1);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == getItemCount() - 1) {
+            return TYPE_FOOTER;
+        }
+        return TYPE_ITEM;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == TYPE_FOOTER) {
+            return new ViewHolder(mFooterView);
+        }
         ViewHolder viewHolder = new ViewHolder(LayoutInflater.from(
                 ContextProvider.getApplicationContext())
                 .inflate(R.layout.item_usage, parent, false));
@@ -29,29 +49,31 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.mUsageName.setText(AccountManager.getInstance().getUsageNameList().get(position));
-        holder.mUsageName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+        if (getItemViewType(position) == TYPE_ITEM) {
+            holder.mUsageName.setText(AccountManager.getInstance().getUsageNameList().get(position));
+            holder.mUsageName.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                AccountManager.getInstance().renameUsageByIndex(
-                        holder.mUsageName.getText().toString(), position);
-            }
-        });
-        holder.mUsageDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AccountManager.getInstance().deleteUsageByIndex(position);
-                notifyDataSetChanged();
-            }
-        });
+                @Override
+                public void afterTextChanged(Editable s) {
+                    AccountManager.getInstance().renameUsageByIndex(
+                            holder.mUsageName.getText().toString(), position);
+                }
+            });
+            holder.mUsageDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AccountManager.getInstance().deleteUsageByIndex(position);
+                    notifyDataSetChanged();
+                }
+            });
+        }
     }
 
     @Override
@@ -66,6 +88,9 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
 
         public ViewHolder(View itemView) {
             super(itemView);
+            if (itemView == mFooterView) {
+                return;
+            }
             mUsageName = (EditText) itemView.findViewById(R.id.item_usage_name);
             mUsageDelete = (ImageView) itemView.findViewById(R.id.item_usage_delete);
         }
