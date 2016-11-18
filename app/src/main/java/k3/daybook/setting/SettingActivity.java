@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import k3.daybook.R;
 import k3.daybook.data.manager.AccountManager;
+import k3.daybook.setting.adapter.DividerItemDecoration;
 import k3.daybook.setting.adapter.PaymentAdapter;
 import k3.daybook.setting.adapter.UsageAdapter;
 
@@ -46,10 +47,14 @@ public class SettingActivity extends Activity {
 
         mPaymentAdapter = new PaymentAdapter();
         lvPayment.setLayoutManager(new LinearLayoutManager(this));
+        lvPayment.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL_LIST));
         lvPayment.setAdapter(mPaymentAdapter);
 
         mUsageAdapter = new UsageAdapter();
         lvUsage.setLayoutManager(new LinearLayoutManager(this));
+        lvUsage.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL_LIST));
         lvUsage.setAdapter(mUsageAdapter);
 
     }
