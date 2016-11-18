@@ -107,6 +107,14 @@ public class AccountManager {
         DBUtil.addPayment(payment);
     }
 
+    public void resetBudget(float budget) {
+        sAccount.setBudget(budget);
+    }
+
+    public void resetDate(int date) {
+        sAccount.setPeriodDate(date);
+    }
+
     public void storeDataToDB() {
         DBUtil.updateAmmount(sAccount);
         DBUtil.updateUsages(sUsages);

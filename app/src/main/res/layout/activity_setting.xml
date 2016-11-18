@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:layout_marginEnd="@dimen/activity_horizontal_margin"
     android:layout_marginStart="@dimen/activity_horizontal_margin"
+    android:focusable="true"
     android:orientation="vertical"
     tools:context="k3.daybook.setting.SettingActivity">
 
@@ -23,7 +24,9 @@
             android:id="@+id/et_setting_budget"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_text_display"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:inputType="numberDecimal"
+            android:maxLines="1"/>
 
     </LinearLayout>
 
@@ -41,7 +44,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_text_display"
             android:layout_gravity="center_vertical"
-            android:hint="@string/hint_setting_period_date"/>
+            android:hint="@string/hint_setting_period_date"
+            android:inputType="number"
+            android:maxLines="1"/>
 
     </LinearLayout>
 

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +66,58 @@ public class SettingActivity extends Activity {
         lvUsage.setAdapter(mUsageAdapter);
         mUsageFooter = LayoutInflater.from(this).inflate(R.layout.footer_append, lvUsage, false);
         mUsageAdapter.setFooterView(mUsageFooter);
+
+        etBudget.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    etBudget.setCursorVisible(true);
+                } else {
+                    etBudget.setCursorVisible(false);
+                }
+            }
+        });
+        etBudget.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                AccountManager.getInstance().resetBudget(
+                        Float.parseFloat(etBudget.getText().toString()));
+            }
+        });
+
+        etPeriodDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    etPeriodDate.setCursorVisible(true);
+                } else {
+                    etPeriodDate.setCursorVisible(false);
+                }
+            }
+        });
+        etPeriodDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                AccountManager.getInstance().resetDate(
+                        Integer.parseInt(etPeriodDate.getText().toString()));
+            }
+        });
     }
 
     private void decorateView() {

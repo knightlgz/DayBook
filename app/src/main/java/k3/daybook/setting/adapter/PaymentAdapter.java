@@ -38,7 +38,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
                 BtnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AccountManager.getInstance().addUsage(newPayment.getText().toString());
+                        AccountManager.getInstance().addPayment(newPayment.getText().toString());
                         BtnAdd.setVisibility(View.VISIBLE);
                         newPayment.setVisibility(View.GONE);
                         BtnSave.setVisibility(View.GONE);
