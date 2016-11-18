@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import k3.daybook.R;
 import k3.daybook.data.manager.AccountManager;
@@ -25,6 +26,27 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     public void setFooterView(View footerView) {
         mFooterView = footerView;
+        mFooterView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final TextView BtnAdd = (TextView) v.findViewById(R.id.tv_footer_append);
+                BtnAdd.setVisibility(View.GONE);
+                final EditText newPayment = (EditText) v.findViewById(R.id.et_setting_add);
+                newPayment.setVisibility(View.VISIBLE);
+                final ImageView BtnSave = (ImageView) v.findViewById(R.id.iv_setting_save);
+                BtnSave.setVisibility(View.VISIBLE);
+                BtnSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AccountManager.getInstance().addUsage(newPayment.getText().toString());
+                        BtnAdd.setVisibility(View.VISIBLE);
+                        newPayment.setVisibility(View.GONE);
+                        BtnSave.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
+
         notifyItemInserted(getItemCount() - 1);
     }
 
@@ -72,7 +94,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
                 public void onClick(View v) {
                     AccountManager.getInstance().deletePaymentByIndex(position);
                     notifyDataSetChanged();
-                    }
+                }
             });
         }
     }

@@ -91,6 +91,22 @@ public class AccountManager {
         sAccount.deletePaymentNameByIndex(index);
     }
 
+    public void addUsage(String name) {
+        Usage usage = new Usage();
+        usage.setName(name);
+        sAccount.addUsageName(name);
+        sUsages.add(usage);
+        DBUtil.addUsage(usage);
+    }
+
+    public void addPayment(String name) {
+        Payment payment = new Payment();
+        payment.setName(name);
+        sAccount.addPaymentName(name);
+        sPayments.add(payment);
+        DBUtil.addPayment(payment);
+    }
+
     public void storeDataToDB() {
         DBUtil.updateAmmount(sAccount);
         DBUtil.updateUsages(sUsages);

@@ -161,6 +161,8 @@ public class DBUtil {
         account.refreshUsageNames(demoUsages());
         account.refreshPaymentNames(demoPayments());
 
+        updateAmmount(account);
+
         return account;
     }
 
@@ -186,6 +188,8 @@ public class DBUtil {
         usage.setId(3);
         usage.setName("4EXs");
         list.add(usage);
+
+        updateUsages(list);
 
         return list;
     }
@@ -217,6 +221,8 @@ public class DBUtil {
         payment.setId(4);
         payment.setName("Debit Card");
         list.add(payment);
+
+        updatePayments(list);
 
         return list;
     }
@@ -277,6 +283,27 @@ public class DBUtil {
             @Override
             public void onError(Throwable error) {
 
+            }
+        });
+    }
+
+    /**
+     * Appender
+     */
+    public static void addPayment(final Payment payment) {
+        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Realm.getDefaultInstance().insertOrUpdate(payment);
+            }
+        });
+    }
+
+    public static void addUsage(final Usage usage) {
+        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Realm.getDefaultInstance().insertOrUpdate(usage);
             }
         });
     }

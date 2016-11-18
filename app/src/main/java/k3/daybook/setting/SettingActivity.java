@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 
 import k3.daybook.R;
@@ -23,6 +24,7 @@ public class SettingActivity extends Activity {
 
     private PaymentAdapter mPaymentAdapter;
     private UsageAdapter mUsageAdapter;
+    private View mPaymentFooter, mUsageFooter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +53,17 @@ public class SettingActivity extends Activity {
         lvPayment.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL_LIST));
         lvPayment.setAdapter(mPaymentAdapter);
-        mPaymentAdapter.setFooterView(LayoutInflater.from(this).inflate(R.layout.footer_append, lvPayment, false));
+        mPaymentFooter = LayoutInflater.from(this)
+                .inflate(R.layout.footer_append, lvPayment, false);
+        mPaymentAdapter.setFooterView(mPaymentFooter);
 
         mUsageAdapter = new UsageAdapter();
         lvUsage.setLayoutManager(new LinearLayoutManager(this));
         lvUsage.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL_LIST));
         lvUsage.setAdapter(mUsageAdapter);
-        mUsageAdapter.setFooterView(LayoutInflater.from(this).inflate(R.layout.footer_append, lvPayment, false));
+        mUsageFooter = LayoutInflater.from(this).inflate(R.layout.footer_append, lvUsage, false);
+        mUsageAdapter.setFooterView(mUsageFooter);
     }
 
     private void decorateView() {
