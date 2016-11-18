@@ -6,6 +6,12 @@
     <!-- Home Page -->
     <string name="home_analyze">分析</string>
     <string name="home_setting">设置</string>
+    <string name="home_switch_off">支出</string>
+    <string name="home_switch_on">收入</string>
+    <string name="hint_home_amount_needed">请输入金额</string>
+    <string name="home_another_page">换一组</string>
+    <string name="home_usage">用途</string>
+    <string name="home_payment">支付方式</string>
 
     <!-- Setting Page -->
     <string name="tv_setting_budget">每月预算: </string>
