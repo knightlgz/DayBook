@@ -23,6 +23,7 @@
             android:id="@+id/home_in_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="false"
             android:textOff="@string/home_switch_off"
             android:textOn="@string/home_switch_on"
             android:theme="@android:style/Theme.Holo.Light"/>
@@ -31,7 +32,8 @@
             android:id="@+id/et_home_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_home_amount_needed"/>
+            android:hint="@string/hint_home_amount_needed"
+            android:inputType="numberDecimal"/>
 
     </LinearLayout>
 
@@ -50,9 +52,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:gravity="center"
-                android:text="@string/home_usage"/>
+                android:text="@string/home_usage"
+                android:textStyle="bold"/>
 
             <RadioButton
                 android:id="@+id/home_usage_1"
@@ -99,9 +101,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:gravity="center"
-                android:text="@string/home_payment"/>
+                android:text="@string/home_payment"
+                android:textStyle="bold"/>
 
             <RadioButton
                 android:id="@+id/home_payment_1"
