@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DayBook</string>
+    <string name="common_submit">Submit</string>
+    <string name="db_name">k3daybook</string>
+
+    <!-- Home Page -->
+    <string name="home_analyze">Analyze</string>
+    <string name="home_setting">Setting</string>
+    <string name="home_switch_off">Pay</string>
+    <string name="home_switch_on">Gain</string>
+    <string name="hint_home_amount_needed">enter amount please</string>
+    <string name="home_another_page">another set</string>
+    <string name="home_usage">Usage</string>
+    <string name="home_payment">Payment</string>
+
+    <!-- Setting Page -->
+    <string name="tv_setting_budget">Budget per Month: </string>
+    <string name="tv_setting_period_date">Accounting Date: </string>
+    <string name="hint_setting_period_date"> 1 ~ 28 </string>
+    <string name="tv_setting_usage">Usages: </string>
+    <string name="tv_setting_payment">Payments: </string>
+    <string name="tv_setting_add_more">--Add More--</string>
+    <string name="hint_setting_name_needed">enter name please</string>
+</resources>
