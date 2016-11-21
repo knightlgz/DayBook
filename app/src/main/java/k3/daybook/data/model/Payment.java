@@ -62,4 +62,12 @@ public class Payment extends RealmObject {
                 ", times=" + times +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Payment)) {
+            return false;
+        }
+        return id == ((Payment) obj).getId();
+    }
 }

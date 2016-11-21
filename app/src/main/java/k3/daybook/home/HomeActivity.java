@@ -252,12 +252,10 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
         case R.id.another_usage_page:
             isUsageSetChanged = !isUsageSetChanged;
             makeupUsages();
-            // TODO: 2016/11/18 change the text of item
             break;
         case R.id.another_payment_page:
             isPaymentSetChanged = !isPaymentSetChanged;
             makeupPayments();
-            // TODO: 2016/11/18 change the text of item
             break;
         default:
             break;

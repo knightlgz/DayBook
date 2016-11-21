@@ -76,4 +76,12 @@ public class Usage extends RealmObject{
                 ", type=" + type +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Usage)) {
+            return false;
+        }
+        return id == ((Usage) obj).getId();
+    }
 }

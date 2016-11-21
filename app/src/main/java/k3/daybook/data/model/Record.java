@@ -13,7 +13,7 @@ public class Record extends RealmObject {
 
     @PrimaryKey
     private long id;
-    private Date date;
+    private long date;
 
     private float amount;
 
@@ -22,7 +22,7 @@ public class Record extends RealmObject {
 
     public Record() {
         id = DBUtil.getLatestId(Record.class) + 1;
-        date = new Date(System.currentTimeMillis());
+        date = System.currentTimeMillis();
         amount = 0;
         usageName = "";
         paymentName = "";
@@ -36,11 +36,11 @@ public class Record extends RealmObject {
         this.amount = amount;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
     }
 

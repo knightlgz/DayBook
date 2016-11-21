@@ -1,5 +1,6 @@
 package k3.daybook.util;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -8,9 +9,11 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmModel;
+import io.realm.Sort;
 import k3.daybook.R;
 import k3.daybook.data.model.Account;
 import k3.daybook.data.model.Payment;
+import k3.daybook.data.model.Record;
 import k3.daybook.data.model.Usage;
 
 /**
@@ -23,6 +26,9 @@ public class DBUtil {
 
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
+    private static final String KEY_DATE = "date";
+    private static final String KEY_USAGE_NAME = "usageName";
+    private static final String KEY_PAYMENT_NAME = "paymentName";
 
     public static void initRealm() {
         Realm.init(ContextProvider.getApplicationContext());
@@ -306,6 +312,97 @@ public class DBUtil {
                 Realm.getDefaultInstance().insertOrUpdate(usage);
             }
         });
+    }
+
+    /**
+     * Conditional Query
+     */
+    @Nullable
+    public static Usage getLastSelectedUsage() {
+        String name = Realm.getDefaultInstance().where(Record.class)
+                .findAllSorted(KEY_ID, Sort.DESCENDING).get(0).getUsageName();
+        Log.d(TAG, "getLastSelectedUsage: the last selected usage is: " + name);
+        Usage result = Realm.getDefaultInstance().where(Usage.class).equalTo(KEY_NAME, name)
+                .findFirst();
+        if (result == null) {
+            Log.d(TAG, "getLastSelectedUsage: could not find usage with name [" + name + "]");
+            return null;
+        } else {
+            Log.d(TAG, "getLastSelectedUsage: " + result);
+            return Realm.getDefaultInstance().copyFromRealm(result);
+        }
+    }
+
+    @Nullable
+    public static Payment getLastSelectedPayment() {
+        String name = Realm.getDefaultInstance().where(Record.class)
+                .findAllSorted(KEY_ID, Sort.DESCENDING).get(0).getPaymentName();
+        Log.d(TAG, "getLastSelectedPayment: the last selected usage is: " + name);
+        Payment result = Realm.getDefaultInstance().where(Payment.class).equalTo(KEY_NAME, name)
+                .findFirst();
+        if (result == null) {
+            Log.d(TAG, "getLastSelectedPayment: could not find usage with name [" + name + "]");
+            return null;
+        } else {
+            Log.d(TAG, "getLastSelectedPayment: " + result);
+            return Realm.getDefaultInstance().copyFromRealm(result);
+        }
+    }
+
+    public static Usage getLastWeekMostSelectedUsage() {
+        List<Record> records = Realm.getDefaultInstance().where(Record.class)
+                .greaterThan(KEY_DATE, TimeUtil.oneWeekAgo()).findAll().sort(KEY_USAGE_NAME);
+        if (records.size() == 0) {
+            Log.d(TAG, "getLastWeekMostSelectedUsage: no records in the recent 7 days");
+        } else {
+            Log.d(TAG, "getLastWeekMostSelectedUsage: " + records);
+        }
+        String maxUsageName = "";
+        int max = 0;
+        int counter = 0;
+        String name = "";
+        for (int index = 0; index < records.size(); index++) {
+            if (!name.equals(records.get(index).getUsageName())) {
+                name = records.get(index).getUsageName();
+                counter = 0;
+            }
+            counter++;
+            if (max < counter) {
+                max = counter;
+                maxUsageName = records.get(index).getUsageName();
+            }
+        }
+        Log.d(TAG, "getLastWeekMostSelectedUsage: " + maxUsageName + " being selected " + max + "times");
+        return Realm.getDefaultInstance().copyFromRealm(
+                Realm.getDefaultInstance().where(Usage.class).equalTo(KEY_NAME, maxUsageName).findFirst());
+    }
+
+    public static Payment getLastWeekMostSelectedPayment() {
+        List<Record> records = Realm.getDefaultInstance().where(Record.class)
+                .greaterThan(KEY_DATE, TimeUtil.oneWeekAgo()).findAll().sort(KEY_PAYMENT_NAME);
+        if (records.size() == 0) {
+            Log.d(TAG, "getLastWeekMostSelectedPayment: no records in the recent 7 days");
+        } else {
+            Log.d(TAG, "getLastWeekMostSelectedPayment: " + records);
+        }
+        String maxPaymentName = "";
+        int max = 0;
+        int counter = 0;
+        String name = "";
+        for (int index = 0; index < records.size(); index++) {
+            if (!name.equals(records.get(index).getPaymentName())) {
+                name = records.get(index).getPaymentName();
+                counter = 0;
+            }
+            counter++;
+            if (max < counter) {
+                max = counter;
+                maxPaymentName = records.get(index).getPaymentName();
+            }
+        }
+        Log.d(TAG, "getLastWeekMostSelectedPayment: " + maxPaymentName + " being selected " + max + "times");
+        return Realm.getDefaultInstance().copyFromRealm(
+                Realm.getDefaultInstance().where(Payment.class).equalTo(KEY_NAME, maxPaymentName).findFirst());
     }
 
 }
