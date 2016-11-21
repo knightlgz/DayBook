@@ -21,4 +21,12 @@
         android:layout_width="@dimen/height_setting_item"
         android:layout_height="@dimen/height_setting_item"/>
 
+    <ImageView
+        android:id="@+id/item_payment_store"
+        android:layout_width="@dimen/height_setting_item"
+        android:layout_height="@dimen/height_setting_item"
+        android:clickable="true"
+        android:visibility="gone"
+        android:src="@mipmap/ic_save"/>
+
 </LinearLayout>

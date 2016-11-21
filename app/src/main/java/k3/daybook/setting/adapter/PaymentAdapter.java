@@ -1,8 +1,6 @@
 package k3.daybook.setting.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import k3.daybook.R;
+import k3.daybook.data.constant.GlobalConfig;
 import k3.daybook.data.manager.AccountManager;
 import k3.daybook.util.ContextProvider;
 
@@ -39,7 +38,12 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
                     @Override
                     public void onClick(View v) {
                         AccountManager.getInstance().addPayment(newPayment.getText().toString());
-                        BtnAdd.setVisibility(View.VISIBLE);
+                        if (getItemCount() <= GlobalConfig.LIMIT_PAYMENTS_SIZE) {
+                            BtnAdd.setVisibility(View.VISIBLE);
+                        } else {
+                            BtnAdd.setVisibility(View.GONE);
+                        }
+                        newPayment.setText("");
                         newPayment.setVisibility(View.GONE);
                         BtnSave.setVisibility(View.GONE);
                     }
@@ -74,19 +78,16 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         if (getItemViewType(position) == TYPE_ITEM) {
             holder.mPaymentName.setText(AccountManager.getInstance().getPaymentNameList()
                     .get(position));
-            holder.mPaymentName.addTextChangedListener(new TextWatcher() {
+            holder.mPaymentName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    AccountManager.getInstance().renamePaymentByIndex(
-                            holder.mPaymentName.getText().toString(), position);
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        holder.mPaymentDelete.setVisibility(View.GONE);
+                        holder.mPaymentStore.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.mPaymentDelete.setVisibility(View.VISIBLE);
+                        holder.mPaymentStore.setVisibility(View.GONE);
+                    }
                 }
             });
             holder.mPaymentDelete.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +95,13 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
                 public void onClick(View v) {
                     AccountManager.getInstance().deletePaymentByIndex(position);
                     notifyDataSetChanged();
+                }
+            });
+            holder.mPaymentStore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AccountManager.getInstance().renamePaymentByIndex(
+                            holder.mPaymentName.getText().toString(), position);
                 }
             });
         }
@@ -111,6 +119,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
         EditText mPaymentName;
         ImageView mPaymentDelete;
+        ImageView mPaymentStore;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -119,6 +128,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
             }
             mPaymentName = (EditText) itemView.findViewById(R.id.item_payment_name);
             mPaymentDelete = (ImageView) itemView.findViewById(R.id.item_payment_delete);
+            mPaymentStore = (ImageView) itemView.findViewById(R.id.item_payment_store);
         }
     }
 }

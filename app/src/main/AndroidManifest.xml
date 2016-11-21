@@ -19,7 +19,7 @@
         <activity
             android:name=".setting.SettingActivity"
             android:label="@string/home_setting"
-            android:windowSoftInputMode="stateHidden|stateUnchanged">
+            android:windowSoftInputMode="stateHidden|adjustPan">
         </activity>
     </application>
 

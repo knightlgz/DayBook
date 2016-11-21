@@ -1,8 +1,6 @@
 package k3.daybook.setting.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import k3.daybook.R;
+import k3.daybook.data.constant.GlobalConfig;
 import k3.daybook.data.manager.AccountManager;
 import k3.daybook.util.ContextProvider;
 
@@ -39,7 +38,12 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
                     @Override
                     public void onClick(View v) {
                         AccountManager.getInstance().addUsage(newUsage.getText().toString());
-                        BtnAdd.setVisibility(View.VISIBLE);
+                        if (getItemCount() <= GlobalConfig.LIMIT_USAGES_SIZE) {
+                            BtnAdd.setVisibility(View.VISIBLE);
+                        } else {
+                            BtnAdd.setVisibility(View.GONE);
+                        }
+                        newUsage.setText("");
                         newUsage.setVisibility(View.GONE);
                         BtnSave.setVisibility(View.GONE);
                     }
@@ -74,19 +78,16 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
         if (getItemViewType(position) == TYPE_ITEM) {
             holder.mUsageName
                     .setText(AccountManager.getInstance().getUsageNameList().get(position));
-            holder.mUsageName.addTextChangedListener(new TextWatcher() {
+            holder.mUsageName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    AccountManager.getInstance().renameUsageByIndex(
-                            holder.mUsageName.getText().toString(), position);
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        holder.mUsageDelete.setVisibility(View.GONE);
+                        holder.mUsageStore.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.mUsageDelete.setVisibility(View.VISIBLE);
+                        holder.mUsageStore.setVisibility(View.GONE);
+                    }
                 }
             });
             holder.mUsageDelete.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +95,13 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
                 public void onClick(View v) {
                     AccountManager.getInstance().deleteUsageByIndex(position);
                     notifyDataSetChanged();
+                }
+            });
+            holder.mUsageStore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AccountManager.getInstance().renameUsageByIndex(
+                            holder.mUsageName.getText().toString(), position);
                 }
             });
         }
@@ -111,6 +119,7 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
 
         EditText mUsageName;
         ImageView mUsageDelete;
+        ImageView mUsageStore;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -119,6 +128,7 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
             }
             mUsageName = (EditText) itemView.findViewById(R.id.item_usage_name);
             mUsageDelete = (ImageView) itemView.findViewById(R.id.item_usage_delete);
+            mUsageStore = (ImageView) itemView.findViewById(R.id.item_usage_store);
         }
     }
 }
