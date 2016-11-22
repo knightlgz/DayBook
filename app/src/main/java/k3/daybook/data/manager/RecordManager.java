@@ -40,4 +40,9 @@ public class RecordManager {
     public List<Record> getRecords() {
         return sRecords;
     }
+
+    public void addRecord(Record record) {
+        sRecords.add(record);
+        DBUtil.addRecord(record);
+    }
 }

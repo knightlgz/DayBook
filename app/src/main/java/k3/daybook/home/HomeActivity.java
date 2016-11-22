@@ -15,6 +15,7 @@ import android.widget.Switch;
 
 import k3.daybook.R;
 import k3.daybook.data.manager.AccountManager;
+import k3.daybook.data.manager.RecordManager;
 import k3.daybook.data.model.Record;
 import k3.daybook.home.presenter.HomePresenter;
 import k3.daybook.home.view.HomeViews;
@@ -234,6 +235,21 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
     @Override
     public void confirmAdd() {
         mBtnToAdd.setEnabled(false);
+        mRecord = new Record();
+        mRecord.setAmount(isGain ? 0 - Float.parseFloat(mAmount.getText().toString()) : Float
+                .parseFloat(mAmount.getText().toString()));
+        mRecord.setUsageName(AccountManager.getInstance().getUsageNameList().get(usageIndex));
+        mRecord.setPaymentName(AccountManager.getInstance().getPaymentNameList().get(paymentIndex));
+        RecordManager.getInstance().addRecord(mRecord);
+        mRecord = null;
+        mInOut.setChecked(false);
+        mAmount.setText("");
+        for (RadioButton usage : mUsage) {
+            usage.setChecked(false);
+        }
+        for (RadioButton payment : mPayment) {
+            payment.setChecked(false);
+        }
     }
 
     @Override

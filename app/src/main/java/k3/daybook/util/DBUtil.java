@@ -92,11 +92,10 @@ public class DBUtil {
         List<Record> records = Realm.getDefaultInstance().where(Record.class).findAll();
         if (records.size() == 0) {
             Log.d(TAG, "getRecords: empty db");
-            return records;
         } else {
             Log.d(TAG, "getRecords: " + records);
-            return Realm.getDefaultInstance().copyFromRealm(records);
         }
+        return Realm.getDefaultInstance().copyFromRealm(records);
     }
 
     /**
@@ -321,6 +320,15 @@ public class DBUtil {
             @Override
             public void execute(Realm realm) {
                 Realm.getDefaultInstance().insertOrUpdate(usage);
+            }
+        });
+    }
+
+    public static void addRecord(final Record record) {
+        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Realm.getDefaultInstance().insertOrUpdate(record);
             }
         });
     }
