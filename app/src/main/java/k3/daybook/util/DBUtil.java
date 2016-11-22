@@ -88,6 +88,17 @@ public class DBUtil {
         }
     }
 
+    public static List<Record> getRecords() {
+        List<Record> records = Realm.getDefaultInstance().where(Record.class).findAll();
+        if (records.size() == 0) {
+            Log.d(TAG, "getRecords: empty db");
+            return records;
+        } else {
+            Log.d(TAG, "getRecords: " + records);
+            return Realm.getDefaultInstance().copyFromRealm(records);
+        }
+    }
+
     /**
      * Common Updater
      */

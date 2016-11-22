@@ -22,4 +22,10 @@
     <string name="tv_setting_add_more">--添加更多--</string>
     <string name="hint_setting_name_needed">请输入名称</string>
 
+    <!-- Analyze Page -->
+    <string name="tv_analyze_date">日期</string>
+    <string name="tv_analyze_amount">金额</string>
+    <string name="tv_analyze_usage">用途</string>
+    <string name="tv_analyze_payment">支付方式</string>
+
 </resources>

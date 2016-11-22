@@ -223,6 +223,7 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
 
     @Override
     public void jumpAnalyze() {
+        mPresenter.jumpToAnalyze(this);
     }
 
     @Override

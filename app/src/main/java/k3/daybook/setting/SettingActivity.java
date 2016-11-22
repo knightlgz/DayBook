@@ -50,7 +50,6 @@ public class SettingActivity extends Activity {
         lvUsage = (RecyclerView) findViewById(R.id.rv_setting_usage);
         lvPayment = (RecyclerView) findViewById(R.id.rv_setting_payment);
 
-        mPaymentAdapter = new PaymentAdapter();
         lvPayment.setLayoutManager(new LinearLayoutManager(this));
         lvPayment.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL_LIST));
@@ -59,7 +58,6 @@ public class SettingActivity extends Activity {
                 .inflate(R.layout.footer_append, lvPayment, false);
         mPaymentAdapter.setFooterView(mPaymentFooter);
 
-        mUsageAdapter = new UsageAdapter();
         lvUsage.setLayoutManager(new LinearLayoutManager(this));
         lvUsage.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL_LIST));

@@ -21,6 +21,8 @@
             android:label="@string/home_setting"
             android:windowSoftInputMode="stateHidden|adjustPan">
         </activity>
+        <activity android:name=".analyze.AnalyzeActivity">
+        </activity>
     </application>
 
 </manifest>
