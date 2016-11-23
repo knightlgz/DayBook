@@ -9,6 +9,7 @@ import k3.daybook.data.model.Account;
 import k3.daybook.data.model.Payment;
 import k3.daybook.data.model.Usage;
 import k3.daybook.util.DBUtil;
+import k3.daybook.util.SortingUtil;
 
 /**
  * @author Kyson LEE
@@ -42,6 +43,8 @@ public class AccountManager {
         sPayments.clear();
         sPayments.addAll(DBUtil.getPayments());
 
+        makeupAccount();
+
         Log.d(TAG, "AccountManager: Data Initialized: " + sAccount + "\n" + sUsages + "\n"
                 + sPayments);
     }
@@ -57,44 +60,52 @@ public class AccountManager {
         return sInstance;
     }
 
+    private void makeupAccount() {
+        SortingUtil.RecommendSortingUsage(sUsages);
+        SortingUtil.RecommendSortingPayment(sPayments);
+    }
+
     public Account getAccount() {
         return sAccount;
     }
 
-    public List<String> getUsageNameList() {
-        return sAccount.getUsageNames();
+    public String getUsageNameByIndex(int index) {
+        return sUsages.get(index).getName();
     }
 
-    public List<String> getPaymentNameList() {
-        return sAccount.getPaymentNames();
+    public int getUsageSize() {
+        return sUsages.size();
+    }
+
+    public String getPaymentNameByIndex(int index) {
+        return sPayments.get(index).getName();
+    }
+
+    public int getPaymentSize() {
+        return sPayments.size();
     }
 
     public void renameUsageByIndex(String newName, int index) {
-        sAccount.renameUsageNameByIndex(newName, index);
         sUsages.get(index).renameUsage(newName);
     }
 
     public void renamePaymentByIndex(String newName, int index) {
-        sAccount.renamePaymentNameByIndex(newName, index);
         sPayments.get(index).rename(newName);
     }
 
     public void deleteUsageByIndex(int index) {
-        DBUtil.deleteUsageByName(sAccount.getUsageNames().get(index));
+        DBUtil.deleteUsageById(sUsages.get(index).getId());
         sUsages.remove(index);
-        sAccount.deleteUsageNameByIndex(index);
     }
 
     public void deletePaymentByIndex(int index) {
-        DBUtil.deletePaymentByName(sAccount.getPaymentNames().get(index));
+        DBUtil.deletePaymentById(sPayments.get(index).getId());
         sPayments.remove(index);
-        sAccount.deletePaymentNameByIndex(index);
     }
 
     public void addUsage(String name) {
         Usage usage = new Usage();
         usage.setName(name);
-        sAccount.addUsageName(name);
         sUsages.add(usage);
         DBUtil.addUsage(usage);
     }
@@ -102,7 +113,6 @@ public class AccountManager {
     public void addPayment(String name) {
         Payment payment = new Payment();
         payment.setName(name);
-        sAccount.addPaymentName(name);
         sPayments.add(payment);
         DBUtil.addPayment(payment);
     }
@@ -116,7 +126,7 @@ public class AccountManager {
     }
 
     public void storeDataToDB() {
-        DBUtil.updateAmmount(sAccount);
+        DBUtil.updateAccount(sAccount);
         DBUtil.updateUsages(sUsages);
         DBUtil.updatePayments(sPayments);
     }

@@ -45,7 +45,6 @@ public class DBUtil {
             Log.d(TAG, "getLatestId of Table " + cls.getSimpleName() + " is: " + -1);
             return -1;
         }
-        Log.d(TAG, "getLatestId of Table " + cls.getSimpleName() + " is: " + target.longValue());
         return target.longValue();
     }
 
@@ -59,8 +58,9 @@ public class DBUtil {
             Log.d(TAG, "getAccount: empty db, demoed data: " + account);
             return account;
         } else {
-            Log.d(TAG, "getAccount: " + account);
-            return Realm.getDefaultInstance().copyFromRealm(account);
+            Account result = Realm.getDefaultInstance().copyFromRealm(account);
+            Log.d(TAG, "getAccount: " + result);
+            return result;
         }
     }
 
@@ -101,12 +101,11 @@ public class DBUtil {
     /**
      * Common Updater
      */
-    public static void updateAmmount(final Account newAccount) {
-        final Account account = Realm.getDefaultInstance().where(Account.class).findFirst();
+    public static void updateAccount(final Account newAccount) {
         Realm.getDefaultInstance().executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                account.updateAccount(newAccount);
+                realm.insertOrUpdate(newAccount);
             }
         }, new Realm.Transaction.OnSuccess() {
             @Override
@@ -116,7 +115,7 @@ public class DBUtil {
         }, new Realm.Transaction.OnError() {
             @Override
             public void onError(Throwable error) {
-
+                Log.d(TAG, "onError: update Account failed");
             }
         });
     }
@@ -126,9 +125,7 @@ public class DBUtil {
             @Override
             public void execute(Realm realm) {
                 for (Usage tem : newUsages) {
-                    Usage usage = Realm.getDefaultInstance().where(Usage.class)
-                            .equalTo(KEY_ID, tem.getId()).findFirst();
-                    usage.updateUsage(tem);
+                    realm.insertOrUpdate(tem);
                 }
             }
         }, new Realm.Transaction.OnSuccess() {
@@ -139,7 +136,7 @@ public class DBUtil {
         }, new Realm.Transaction.OnError() {
             @Override
             public void onError(Throwable error) {
-
+                Log.d(TAG, "onError: update Usages failed");
             }
         });
     }
@@ -149,9 +146,7 @@ public class DBUtil {
             @Override
             public void execute(Realm realm) {
                 for (Payment tem : newPayments) {
-                    Payment payment = Realm.getDefaultInstance().where(Payment.class)
-                            .equalTo(KEY_ID, tem.getId()).findFirst();
-                    payment.updatePayment(tem);
+                    realm.insertOrUpdate(tem);
                 }
             }
         }, new Realm.Transaction.OnSuccess() {
@@ -162,7 +157,7 @@ public class DBUtil {
         }, new Realm.Transaction.OnError() {
             @Override
             public void onError(Throwable error) {
-
+                Log.d(TAG, "onError: update Payments failed");
             }
         });
     }
@@ -174,10 +169,8 @@ public class DBUtil {
         Account account = new Account();
         account.setPeriodDate(10);
         account.setBudget(3000);
-        account.refreshUsageNames(demoUsages());
-        account.refreshPaymentNames(demoPayments());
 
-        updateAmmount(account);
+        updateAccount(account);
 
         return account;
     }
@@ -255,15 +248,13 @@ public class DBUtil {
     /**
      * Conditional Delete
      */
-    public static void deleteUsageByName(String name) {
-        final Usage usage = Realm.getDefaultInstance().where(Usage.class).equalTo(KEY_NAME, name)
-                .findFirst();
-        if (usage == null) {
-            return;
-        }
+
+    public static void deleteUsageById(final long id) {
         Realm.getDefaultInstance().executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
+                Usage usage = Realm.getDefaultInstance().where(Usage.class).equalTo(KEY_ID, id)
+                        .findFirst();
                 usage.deleteFromRealm();
             }
         }, new Realm.Transaction.OnSuccess() {
@@ -274,31 +265,33 @@ public class DBUtil {
         }, new Realm.Transaction.OnError() {
             @Override
             public void onError(Throwable error) {
-
+                Log.d(TAG, "onError: delete usage failed");
             }
         });
     }
 
-    public static void deletePaymentByName(String name) {
-        final Payment payment = Realm.getDefaultInstance().where(Payment.class)
-                .equalTo(KEY_NAME, name).findFirst();
-        if (payment == null) {
-            return;
-        }
+    public static void deletePaymentById(final long id) {
         Realm.getDefaultInstance().executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
+                Payment payment = Realm.getDefaultInstance().where(Payment.class)
+                        .equalTo(KEY_ID, id).findFirst();
                 payment.deleteFromRealm();
             }
         }, new Realm.Transaction.OnSuccess() {
             @Override
             public void onSuccess() {
-
+                Log.d(TAG, "onSuccess: delete payment succeed");
             }
         }, new Realm.Transaction.OnError() {
             @Override
             public void onError(Throwable error) {
-
+                try {
+                    throw error;
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+                Log.d(TAG, "onError: delete payment failed");
             }
         });
     }
@@ -391,9 +384,15 @@ public class DBUtil {
                 maxUsageName = records.get(index).getUsageName();
             }
         }
-        Log.d(TAG, "getLastWeekMostSelectedUsage: " + maxUsageName + " being selected " + max + "times");
-        return Realm.getDefaultInstance().copyFromRealm(
-                Realm.getDefaultInstance().where(Usage.class).equalTo(KEY_NAME, maxUsageName).findFirst());
+        Log.d(TAG, "getLastWeekMostSelectedUsage: " + maxUsageName + " being selected " + max
+                + "times");
+        Usage result = Realm.getDefaultInstance().where(Usage.class)
+                .equalTo(KEY_NAME, maxUsageName).findFirst();
+        if (result == null) {
+            return result;
+        } else {
+            return Realm.getDefaultInstance().copyFromRealm(result);
+        }
     }
 
     public static Payment getLastWeekMostSelectedPayment() {
@@ -419,9 +418,15 @@ public class DBUtil {
                 maxPaymentName = records.get(index).getPaymentName();
             }
         }
-        Log.d(TAG, "getLastWeekMostSelectedPayment: " + maxPaymentName + " being selected " + max + "times");
-        return Realm.getDefaultInstance().copyFromRealm(
-                Realm.getDefaultInstance().where(Payment.class).equalTo(KEY_NAME, maxPaymentName).findFirst());
+        Log.d(TAG, "getLastWeekMostSelectedPayment: " + maxPaymentName + " being selected " + max
+                + " times");
+        Payment result = Realm.getDefaultInstance().where(Payment.class)
+                .equalTo(KEY_NAME, maxPaymentName).findFirst();
+        if (result == null) {
+            return result;
+        } else {
+            return Realm.getDefaultInstance().copyFromRealm(result);
+        }
     }
 
 }

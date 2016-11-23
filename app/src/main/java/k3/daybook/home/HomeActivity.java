@@ -166,28 +166,26 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
 
     private void makeupUsages() {
         if (!isUsageSetChanged) {
-            for (int i = 0; i < (AccountManager.getInstance().getUsageNameList().size() < 5 ? AccountManager
-                    .getInstance().getUsageNameList().size()
-                    : 5); i++) {
-                mUsage[i].setText(AccountManager.getInstance().getUsageNameList().get(i));
+            for (int i = 0; i < (AccountManager.getInstance().getUsageSize() < 5 ? AccountManager
+                    .getInstance().getUsageSize() : 5); i++) {
+                mUsage[i].setText(AccountManager.getInstance().getUsageNameByIndex(i));
                 mUsage[i].setVisibility(View.VISIBLE);
             }
-            for (int i = (AccountManager.getInstance().getUsageNameList().size() < 5 ? AccountManager
-                    .getInstance().getUsageNameList().size()
-                    : 5); i < 5; i++) {
+            for (int i = (AccountManager.getInstance().getUsageSize() < 5 ? AccountManager
+                    .getInstance().getUsageSize() : 5); i < 5; i++) {
                 mUsage[i].setVisibility(View.INVISIBLE);
             }
-            if (AccountManager.getInstance().getUsageNameList().size() <= 5) {
+            if (AccountManager.getInstance().getUsageSize() <= 5) {
                 xUsageSet.setVisibility(View.GONE);
             } else {
                 xUsageSet.setVisibility(View.VISIBLE);
             }
         } else {
-            for (int i = 5; i < AccountManager.getInstance().getUsageNameList().size(); i++) {
-                mUsage[i - 5].setText(AccountManager.getInstance().getUsageNameList().get(i));
+            for (int i = 5; i < AccountManager.getInstance().getUsageSize(); i++) {
+                mUsage[i - 5].setText(AccountManager.getInstance().getUsageNameByIndex(i));
                 mUsage[i - 5].setVisibility(View.VISIBLE);
             }
-            for (int i = AccountManager.getInstance().getUsageNameList().size(); i < 10; i++) {
+            for (int i = AccountManager.getInstance().getUsageSize(); i < 10; i++) {
                 mUsage[i - 5].setVisibility(View.INVISIBLE);
             }
         }
@@ -195,28 +193,26 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
 
     private void makeupPayments() {
         if (!isPaymentSetChanged) {
-            for (int i = 0; i < (AccountManager.getInstance().getPaymentNameList().size() < 5 ? AccountManager
-                    .getInstance().getPaymentNameList().size()
-                    : 5); i++) {
-                mPayment[i].setText(AccountManager.getInstance().getPaymentNameList().get(i));
+            for (int i = 0; i < (AccountManager.getInstance().getPaymentSize() < 5 ? AccountManager
+                    .getInstance().getPaymentSize() : 5); i++) {
+                mPayment[i].setText(AccountManager.getInstance().getPaymentNameByIndex(i));
                 mPayment[i].setVisibility(View.VISIBLE);
             }
-            for (int i = (AccountManager.getInstance().getPaymentNameList().size() < 5 ? AccountManager
-                    .getInstance().getPaymentNameList().size()
-                    : 5); i < 5; i++) {
+            for (int i = (AccountManager.getInstance().getPaymentSize() < 5 ? AccountManager
+                    .getInstance().getPaymentSize() : 5); i < 5; i++) {
                 mPayment[i].setVisibility(View.INVISIBLE);
             }
-            if (AccountManager.getInstance().getPaymentNameList().size() <= 5) {
+            if (AccountManager.getInstance().getPaymentSize() <= 5) {
                 xPaymentSet.setVisibility(View.GONE);
             } else {
                 xPaymentSet.setVisibility(View.VISIBLE);
             }
         } else {
-            for (int i = 5; i < AccountManager.getInstance().getPaymentNameList().size(); i++) {
-                mPayment[i - 5].setText(AccountManager.getInstance().getPaymentNameList().get(i));
+            for (int i = 5; i < AccountManager.getInstance().getPaymentSize(); i++) {
+                mPayment[i - 5].setText(AccountManager.getInstance().getPaymentNameByIndex(i));
                 mPayment[i - 5].setVisibility(View.VISIBLE);
             }
-            for (int i = AccountManager.getInstance().getPaymentNameList().size(); i < 10; i++) {
+            for (int i = AccountManager.getInstance().getPaymentSize(); i < 10; i++) {
                 mPayment[i - 5].setVisibility(View.INVISIBLE);
             }
         }
@@ -238,8 +234,8 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
         mRecord = new Record();
         mRecord.setAmount(isGain ? 0 - Float.parseFloat(mAmount.getText().toString()) : Float
                 .parseFloat(mAmount.getText().toString()));
-        mRecord.setUsageName(AccountManager.getInstance().getUsageNameList().get(usageIndex));
-        mRecord.setPaymentName(AccountManager.getInstance().getPaymentNameList().get(paymentIndex));
+        mRecord.setUsageName(AccountManager.getInstance().getUsageNameByIndex(usageIndex));
+        mRecord.setPaymentName(AccountManager.getInstance().getPaymentNameByIndex(paymentIndex));
         RecordManager.getInstance().addRecord(mRecord);
         mRecord = null;
         mInOut.setChecked(false);

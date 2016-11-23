@@ -76,8 +76,8 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     @Override
     public void onBindViewHolder(final PaymentAdapter.ViewHolder holder, final int position) {
         if (getItemViewType(position) == TYPE_ITEM) {
-            holder.mPaymentName.setText(AccountManager.getInstance().getPaymentNameList()
-                    .get(position));
+            holder.mPaymentName.setText(AccountManager.getInstance()
+                    .getPaymentNameByIndex(position));
             holder.mPaymentName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
@@ -110,9 +110,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     @Override
     public int getItemCount() {
         if (mFooterView == null) {
-            return AccountManager.getInstance().getPaymentNameList().size();
+            return AccountManager.getInstance().getPaymentSize();
         }
-        return AccountManager.getInstance().getPaymentNameList().size() + 1;
+        return AccountManager.getInstance().getPaymentSize() + 1;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

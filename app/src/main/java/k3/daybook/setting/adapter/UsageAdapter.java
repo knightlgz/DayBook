@@ -76,8 +76,7 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         if (getItemViewType(position) == TYPE_ITEM) {
-            holder.mUsageName
-                    .setText(AccountManager.getInstance().getUsageNameList().get(position));
+            holder.mUsageName.setText(AccountManager.getInstance().getUsageNameByIndex(position));
             holder.mUsageName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
@@ -110,9 +109,9 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         if (mFooterView == null) {
-            return AccountManager.getInstance().getUsageNameList().size();
+            return AccountManager.getInstance().getUsageSize();
         }
-        return AccountManager.getInstance().getUsageNameList().size() + 1;
+        return AccountManager.getInstance().getUsageSize() + 1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
