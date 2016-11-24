@@ -29,6 +29,7 @@ public class DBUtil {
     private static final String KEY_DATE = "date";
     private static final String KEY_USAGE_NAME = "usageName";
     private static final String KEY_PAYMENT_NAME = "paymentName";
+    private static final String KEY_AMOUNT = "amount";
 
     public static void initRealm() {
         Realm.init(ContextProvider.getApplicationContext());
@@ -89,7 +90,8 @@ public class DBUtil {
     }
 
     public static List<Record> getRecords() {
-        List<Record> records = Realm.getDefaultInstance().where(Record.class).findAll();
+        List<Record> records = Realm.getDefaultInstance().where(Record.class)
+                .findAllSorted(KEY_DATE, Sort.DESCENDING);
         if (records.size() == 0) {
             Log.d(TAG, "getRecords: empty db");
         } else {
@@ -427,6 +429,18 @@ public class DBUtil {
         } else {
             return Realm.getDefaultInstance().copyFromRealm(result);
         }
+    }
+
+    public static float getConsumedBudgetOfLastPeriod() {
+        int accountingDay = getAccount().getPeriodDate();
+        Number result = Realm.getDefaultInstance().where(Record.class)
+                .greaterThan(KEY_DATE, TimeUtil.lastAccountingDay(accountingDay)).findAll()
+                .sum(KEY_AMOUNT);
+        if (result == null) {
+            Log.d(TAG, "getConsumedBudgetOfLastPeriod: no data for last period");
+            return 0;
+        }
+        return result.floatValue();
     }
 
 }

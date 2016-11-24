@@ -17,7 +17,7 @@ import k3.daybook.util.ContextProvider;
  * @author Kyson LEE
  */
 
-public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
+public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentHolder> {
     private final int TYPE_ITEM = 0;
     private final int TYPE_FOOTER = 1;
 
@@ -72,18 +72,18 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PaymentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_FOOTER && mFooterView != null) {
-            return new ViewHolder(mFooterView);
+            return new PaymentHolder(mFooterView);
         }
-        ViewHolder viewHolder = new PaymentAdapter.ViewHolder(LayoutInflater.from(
+        PaymentHolder viewHolder = new PaymentHolder(LayoutInflater.from(
                 ContextProvider.getApplicationContext()).inflate(R.layout.item_payment, parent,
                 false));
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final PaymentAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final PaymentHolder holder, final int position) {
         if (getItemViewType(position) == TYPE_ITEM) {
             holder.mPaymentName.setText(AccountManager.getInstance()
                     .getPaymentNameByIndex(position));
@@ -114,7 +114,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
                 }
             });
         } else if (getItemViewType(position) == TYPE_FOOTER) {
-            if (getItemCount() <= GlobalConfig.LIMIT_PAYMENTS_SIZE) {
+            if (getItemCount() <= GlobalConfig.LIMIT_USAGE_SIZE) {
                 mFooterView.findViewById(R.id.tv_footer_append).setVisibility(View.VISIBLE);
             } else {
                 mFooterView.findViewById(R.id.tv_footer_append).setVisibility(View.GONE);
@@ -130,13 +130,13 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         return AccountManager.getInstance().getPaymentSize() + 1;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class PaymentHolder extends RecyclerView.ViewHolder {
 
         EditText mPaymentName;
         ImageView mPaymentDelete;
         ImageView mPaymentStore;
 
-        ViewHolder(View itemView) {
+        PaymentHolder(View itemView) {
             super(itemView);
             if (itemView == mFooterView) {
                 return;

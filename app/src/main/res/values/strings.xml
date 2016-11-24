@@ -6,6 +6,9 @@
     <!-- Home Page -->
     <string name="home_analyze">分析</string>
     <string name="home_setting">设置</string>
+    <string name="tv_home_rest_budget">剩余预算: </string>
+    <string name="tv_home_past_budget">已经消费: </string>
+    <string name="tv_home_recent_payout">最近几条消费记录</string>
 
     <!-- Setting Page -->
     <string name="tv_setting_budget">每月预算: </string>
@@ -15,6 +18,7 @@
     <string name="tv_setting_payment">支付方式: </string>
     <string name="tv_setting_add_more">--添加更多--</string>
     <string name="hint_setting_name_needed">请输入名称</string>
+    <string name="tv_add_to_next_period">剩余预算并入下一周期？ </string>
 
     <!-- Analyze Page -->
     <string name="tv_analyze_date">日期</string>

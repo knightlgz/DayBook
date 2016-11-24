@@ -21,4 +21,6 @@
     <dimen name="margin_recording_button_horizontal">32dp</dimen>
     <dimen name="margin_recording_button_vertical">16dp</dimen>
 
+    <dimen name="size_text_highlight">32dp</dimen>
+
 </resources>

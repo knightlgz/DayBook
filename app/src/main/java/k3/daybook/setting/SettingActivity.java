@@ -9,9 +9,12 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import k3.daybook.R;
+import k3.daybook.data.constant.GlobalConfig;
 import k3.daybook.data.manager.AccountManager;
 import k3.daybook.data.model.Account;
 import k3.daybook.setting.adapter.DividerItemDecoration;
@@ -26,6 +29,7 @@ public class SettingActivity extends Activity {
 
     private EditText etBudget, etPeriodDate;
     private RecyclerView lvUsage, lvPayment;
+    private Switch budgetMerge;
 
     private PaymentAdapter mPaymentAdapter;
     private UsageAdapter mUsageAdapter;
@@ -39,6 +43,7 @@ public class SettingActivity extends Activity {
         Log.d(TAG, "onCreate: -----------------");
         initData();
         initView();
+        initListener();
         decorateView();
     }
 
@@ -53,6 +58,8 @@ public class SettingActivity extends Activity {
         etPeriodDate = (EditText) findViewById(R.id.et_setting_period_date);
         lvUsage = (RecyclerView) findViewById(R.id.rv_setting_usage);
         lvPayment = (RecyclerView) findViewById(R.id.rv_setting_payment);
+        budgetMerge = (Switch) findViewById(R.id.setting_budget_merge);
+        budgetMerge.setChecked(GlobalConfig.MERGE_BUDGET);
 
         lvPayment.setLayoutManager(new LinearLayoutManager(this));
         lvPayment.addItemDecoration(new DividerItemDecoration(this,
@@ -68,7 +75,15 @@ public class SettingActivity extends Activity {
         lvUsage.setAdapter(mUsageAdapter);
         mUsageFooter = LayoutInflater.from(this).inflate(R.layout.footer_append, lvUsage, false);
         mUsageAdapter.setFooterView(mUsageFooter);
+    }
 
+    private void initListener() {
+        budgetMerge.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                GlobalConfig.updateMergeBudget(isChecked);
+            }
+        });
         etBudget.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -118,6 +133,7 @@ public class SettingActivity extends Activity {
                 mAccount.setPeriodDate(Integer.parseInt(etPeriodDate.getText().toString()));
             }
         });
+
     }
 
     private void decorateView() {

@@ -2,13 +2,20 @@ package k3.daybook.home;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import k3.daybook.R;
+import k3.daybook.data.constant.GlobalConfig;
+import k3.daybook.data.manager.AccountManager;
+import k3.daybook.home.adapter.RecentlyAdapter;
 import k3.daybook.home.presenter.HomePresenter;
 import k3.daybook.home.view.HomeViews;
+import k3.daybook.util.DBUtil;
 
 /**
  * @author Kyson LEE
@@ -19,6 +26,11 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
     private final String TAG = "Home";
     private ImageView mBtnToAnalyze, mBtnToSetting, mBtnToAdd;
     private HomePresenter mPresenter = null;
+    private TextView mTvRestBudget, mTvPastBudget;
+    private RecyclerView rvRecentlyPayout;
+
+    private float consumedBudget, wholeBudget;
+    private RecentlyAdapter mAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +51,31 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
     }
 
     private void initData() {
+        consumedBudget = DBUtil.getConsumedBudgetOfLastPeriod();
+        wholeBudget = AccountManager.getInstance().getAccount().getBudget();
+        mAdapter = new RecentlyAdapter();
     }
 
     private void initView() {
         mBtnToAnalyze = (ImageView) findViewById(R.id.home_analyze);
         mBtnToSetting = (ImageView) findViewById(R.id.home_setting);
         mBtnToAdd = (ImageView) findViewById(R.id.home_add);
+        mTvRestBudget = (TextView) findViewById(R.id.home_rest_budget);
+        mTvPastBudget = (TextView) findViewById(R.id.home_past_budget);
+        rvRecentlyPayout = (RecyclerView) findViewById(R.id.rv_home_recent_records);
+
+        mTvRestBudget.setText(String.valueOf(wholeBudget - consumedBudget));
+        if (consumedBudget >= wholeBudget * GlobalConfig.BUDGET_DANGER) {
+            mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_alarm));
+        } else if (consumedBudget >= wholeBudget * GlobalConfig.BUDGET_FRIENDLY) {
+            mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_caution));
+        } else {
+            mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_friendly));
+        }
+        mTvPastBudget.setText(String.valueOf(consumedBudget));
+
+        rvRecentlyPayout.setLayoutManager(new LinearLayoutManager(this));
+        rvRecentlyPayout.setAdapter(mAdapter);
     }
 
     private void initListener() {

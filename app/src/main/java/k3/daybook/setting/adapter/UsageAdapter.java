@@ -17,7 +17,7 @@ import k3.daybook.util.ContextProvider;
  * @author Kyson LEE
  */
 
-public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> {
+public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.UsageHolder> {
     private final int TYPE_ITEM = 0;
     private final int TYPE_FOOTER = 1;
 
@@ -74,18 +74,18 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public UsageHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_FOOTER) {
-            return new ViewHolder(mFooterView);
+            return new UsageHolder(mFooterView);
         }
-        ViewHolder viewHolder = new ViewHolder(LayoutInflater.from(
+        UsageHolder viewHolder = new UsageHolder(LayoutInflater.from(
                 ContextProvider.getApplicationContext())
                 .inflate(R.layout.item_usage, parent, false));
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final UsageHolder holder, final int position) {
         if (getItemViewType(position) == TYPE_ITEM) {
             holder.mUsageName.setText(AccountManager.getInstance().getUsageNameByIndex(position));
             holder.mUsageName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -115,7 +115,7 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
                 }
             });
         } else if (getItemViewType(position) == TYPE_FOOTER) {
-            if (getItemCount() <= GlobalConfig.LIMIT_PAYMENTS_SIZE) {
+            if (getItemCount() <= GlobalConfig.LIMIT_PAYMENT_SIZE) {
                 mFooterView.findViewById(R.id.tv_footer_append).setVisibility(View.VISIBLE);
             } else {
                 mFooterView.findViewById(R.id.tv_footer_append).setVisibility(View.GONE);
@@ -131,13 +131,13 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
         return AccountManager.getInstance().getUsageSize() + 1;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class UsageHolder extends RecyclerView.ViewHolder {
 
         EditText mUsageName;
         ImageView mUsageDelete;
         ImageView mUsageStore;
 
-        public ViewHolder(View itemView) {
+        public UsageHolder(View itemView) {
             super(itemView);
             if (itemView == mFooterView) {
                 return;

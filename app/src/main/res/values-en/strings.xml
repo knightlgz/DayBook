@@ -7,6 +7,26 @@
     <!-- Home Page -->
     <string name="home_analyze">Analyze</string>
     <string name="home_setting">Setting</string>
+
+    <!-- Setting Page -->
+    <string name="tv_setting_budget">Budget/Month: </string>
+    <string name="tv_setting_period_date">Accounting Date: </string>
+    <string name="hint_setting_period_date"> 1 ~ 28 </string>
+    <string name="tv_setting_usage">Usages: </string>
+    <string name="tv_setting_payment">Payments: </string>
+    <string name="tv_setting_add_more">--Add More--</string>
+    <string name="hint_setting_name_needed">enter name please</string>
+    <string name="tv_add_to_next_period">Merge the rest budget to next month？ </string>
+
+    <!-- Analyze Page -->
+    <string name="tv_analyze_date">Date</string>
+    <string name="tv_analyze_amount">Amount</string>
+    <string name="tv_analyze_usage">Usage</string>
+    <string name="tv_analyze_payment">Payment</string>
+
+    <!-- Recording Page -->
+    <string name="btn_recording_cancel">Cancel</string>
+    <string name="btn_recording_submit">Submit</string>
     <string name="recording_switch_off">Pay</string>
     <string name="recording_switch_on">Gain</string>
     <string name="hint_recording_amount_needed">enter amount please</string>
@@ -14,12 +34,4 @@
     <string name="recording_usage">Usage</string>
     <string name="recording_payment">Payment</string>
 
-    <!-- Setting Page -->
-    <string name="tv_setting_budget">Budget per Month: </string>
-    <string name="tv_setting_period_date">Accounting Date: </string>
-    <string name="hint_setting_period_date"> 1 ~ 28 </string>
-    <string name="tv_setting_usage">Usages: </string>
-    <string name="tv_setting_payment">Payments: </string>
-    <string name="tv_setting_add_more">--Add More--</string>
-    <string name="hint_setting_name_needed">enter name please</string>
 </resources>
