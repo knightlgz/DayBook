@@ -10,6 +10,6 @@ public interface HomeViews {
 
     void jumpSetting();
 
-    void confirmAdd();
+    void jumpRecording();
 
 }

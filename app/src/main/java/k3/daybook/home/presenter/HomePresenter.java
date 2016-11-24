@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import k3.daybook.analyze.AnalyzeActivity;
+import k3.daybook.recording.RecordingActivity;
 import k3.daybook.setting.SettingActivity;
 
 /**
@@ -21,6 +22,11 @@ public class HomePresenter {
 
     public void jumpToAnalyze(Context context) {
         mIntent = new Intent(context, AnalyzeActivity.class);
+        context.startActivity(mIntent);
+    }
+
+    public void jumpToRecording(Context context) {
+        mIntent = new Intent(context, RecordingActivity.class);
         context.startActivity(mIntent);
     }
 

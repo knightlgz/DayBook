@@ -7,12 +7,12 @@
     <!-- Home Page -->
     <string name="home_analyze">Analyze</string>
     <string name="home_setting">Setting</string>
-    <string name="home_switch_off">Pay</string>
-    <string name="home_switch_on">Gain</string>
-    <string name="hint_home_amount_needed">enter amount please</string>
-    <string name="home_another_page">another set</string>
-    <string name="home_usage">Usage</string>
-    <string name="home_payment">Payment</string>
+    <string name="recording_switch_off">Pay</string>
+    <string name="recording_switch_on">Gain</string>
+    <string name="hint_recording_amount_needed">enter amount please</string>
+    <string name="recording_another_page">another set</string>
+    <string name="recording_usage">Usage</string>
+    <string name="recording_payment">Payment</string>
 
     <!-- Setting Page -->
     <string name="tv_setting_budget">Budget per Month: </string>

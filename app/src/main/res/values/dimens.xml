@@ -17,4 +17,8 @@
 
     <dimen name="size_home_icon">50dp</dimen>
     <dimen name="size_home_add">82dp</dimen>
+
+    <dimen name="margin_recording_button_horizontal">32dp</dimen>
+    <dimen name="margin_recording_button_vertical">16dp</dimen>
+
 </resources>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/activity_recording"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="k3.daybook.recording.RecordingActivity">
+
+    <LinearLayout
+        android:id="@+id/recording_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:orientation="horizontal">
+
+        <Switch
+            android:id="@+id/recording_in_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:textOff="@string/recording_switch_off"
+            android:textOn="@string/recording_switch_on"
+            android:theme="@android:style/Theme.Holo.Light"/>
+
+        <EditText
+            android:id="@+id/et_recording_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_recording_amount_needed"
+            android:inputType="numberDecimal"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recording_money"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_break"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/recording_usage"
+                android:textStyle="bold"/>
+
+            <RadioButton
+                android:id="@+id/recording_usage_1"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_setting_item"/>
+
+            <RadioButton
+                android:id="@+id/recording_usage_2"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_setting_item"/>
+
+            <RadioButton
+                android:id="@+id/recording_usage_3"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_setting_item"/>
+
+            <RadioButton
+                android:id="@+id/recording_usage_4"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_setting_item"/>
+
+            <RadioButton
+                android:id="@+id/recording_usage_5"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_setting_item"/>
+
+            <Button
+                android:id="@+id/another_usage_page"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_break"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/recording_another_page"/>
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_break"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/recording_payment"
+                android:textStyle="bold"/>
+
+            <RadioButton
+                android:id="@+id/recording_payment_1"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_setting_item"/>
+
+            <RadioButton
+                android:id="@+id/recording_payment_2"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_setting_item"/>
+
+            <RadioButton
+                android:id="@+id/recording_payment_3"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_setting_item"/>
+
+            <RadioButton
+                android:id="@+id/recording_payment_4"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_setting_item"/>
+
+            <RadioButton
+                android:id="@+id/recording_payment_5"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_setting_item"/>
+
+            <Button
+                android:id="@+id/another_payment_page"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_break"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/recording_another_page"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/recording_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="@dimen/margin_recording_button_vertical"
+        android:layout_marginStart="@dimen/margin_recording_button_horizontal"
+        android:text="@string/btn_recording_cancel"/>
+
+    <Button
+        android:id="@+id/recording_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="@dimen/margin_recording_button_vertical"
+        android:layout_marginEnd="@dimen/margin_recording_button_horizontal"
+        android:text="@string/btn_recording_submit"/>
+
+</RelativeLayout>
