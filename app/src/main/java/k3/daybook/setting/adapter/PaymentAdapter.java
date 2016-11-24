@@ -26,30 +26,37 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     public void setFooterView(View footerView) {
         mFooterView = footerView;
 
-        if (getItemCount() <= GlobalConfig.LIMIT_PAYMENTS_SIZE) {
-            mFooterView.findViewById(R.id.tv_footer_append).setVisibility(View.VISIBLE);
-        } else {
-            mFooterView.findViewById(R.id.tv_footer_append).setVisibility(View.GONE);
-        }
+        final TextView BtnAdd = (TextView) mFooterView.findViewById(R.id.tv_footer_append);
+        final EditText newPayment = (EditText) mFooterView.findViewById(R.id.et_setting_add);
+        final ImageView BtnSave = (ImageView) mFooterView.findViewById(R.id.iv_setting_save);
 
         mFooterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView BtnAdd = (TextView) v.findViewById(R.id.tv_footer_append);
                 BtnAdd.setVisibility(View.GONE);
-                final EditText newPayment = (EditText) v.findViewById(R.id.et_setting_add);
                 newPayment.setVisibility(View.VISIBLE);
-                final ImageView BtnSave = (ImageView) v.findViewById(R.id.iv_setting_save);
                 BtnSave.setVisibility(View.VISIBLE);
-                BtnSave.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AccountManager.getInstance().addPayment(newPayment.getText().toString());
-                        newPayment.setText("");
-                        newPayment.setVisibility(View.GONE);
-                        BtnSave.setVisibility(View.GONE);
-                    }
-                });
+            }
+        });
+
+        newPayment.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                BtnAdd.setVisibility(View.VISIBLE);
+                newPayment.setText("");
+                newPayment.setVisibility(View.GONE);
+                BtnSave.setVisibility(View.GONE);
+            }
+        });
+
+        BtnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AccountManager.getInstance().addPayment(newPayment.getText().toString());
+                newPayment.setText("");
+                newPayment.setVisibility(View.GONE);
+                BtnSave.setVisibility(View.GONE);
+                notifyDataSetChanged();
             }
         });
 
@@ -106,6 +113,12 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
                             holder.mPaymentName.getText().toString(), position);
                 }
             });
+        } else if (getItemViewType(position) == TYPE_FOOTER) {
+            if (getItemCount() <= GlobalConfig.LIMIT_PAYMENTS_SIZE) {
+                mFooterView.findViewById(R.id.tv_footer_append).setVisibility(View.VISIBLE);
+            } else {
+                mFooterView.findViewById(R.id.tv_footer_append).setVisibility(View.GONE);
+            }
         }
     }
 

@@ -26,30 +26,39 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
     public void setFooterView(View footerView) {
         mFooterView = footerView;
 
-        if (getItemCount() <= GlobalConfig.LIMIT_USAGES_SIZE) {
-            mFooterView.findViewById(R.id.tv_footer_append).setVisibility(View.VISIBLE);
-        } else {
-            mFooterView.findViewById(R.id.tv_footer_append).setVisibility(View.GONE);
-        }
+        final TextView BtnAdd = (TextView) mFooterView.findViewById(R.id.tv_footer_append);
+        final EditText newUsage = (EditText) mFooterView.findViewById(R.id.et_setting_add);
+        final ImageView BtnSave = (ImageView) mFooterView.findViewById(R.id.iv_setting_save);
 
         mFooterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView BtnAdd = (TextView) v.findViewById(R.id.tv_footer_append);
                 BtnAdd.setVisibility(View.GONE);
-                final EditText newUsage = (EditText) v.findViewById(R.id.et_setting_add);
                 newUsage.setVisibility(View.VISIBLE);
-                final ImageView BtnSave = (ImageView) v.findViewById(R.id.iv_setting_save);
                 BtnSave.setVisibility(View.VISIBLE);
-                BtnSave.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AccountManager.getInstance().addUsage(newUsage.getText().toString());
-                        newUsage.setText("");
-                        newUsage.setVisibility(View.GONE);
-                        BtnSave.setVisibility(View.GONE);
-                    }
-                });
+            }
+        });
+
+        newUsage.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    BtnAdd.setVisibility(View.VISIBLE);
+                    newUsage.setText("");
+                    newUsage.setVisibility(View.GONE);
+                    BtnSave.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        BtnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AccountManager.getInstance().addUsage(newUsage.getText().toString());
+                newUsage.setText("");
+                newUsage.setVisibility(View.GONE);
+                BtnSave.setVisibility(View.GONE);
+                notifyDataSetChanged();
             }
         });
 
@@ -105,6 +114,12 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.ViewHolder> 
                             holder.mUsageName.getText().toString(), position);
                 }
             });
+        } else if (getItemViewType(position) == TYPE_FOOTER) {
+            if (getItemCount() <= GlobalConfig.LIMIT_PAYMENTS_SIZE) {
+                mFooterView.findViewById(R.id.tv_footer_append).setVisibility(View.VISIBLE);
+            } else {
+                mFooterView.findViewById(R.id.tv_footer_append).setVisibility(View.GONE);
+            }
         }
     }
 

@@ -39,7 +39,7 @@ public class SortingUtil {
         tem = DBUtil.getLastWeekMostSelectedUsage();
         if (tem == null) {
             Log.d(TAG, "RecommendSorting: could not find the most time used usage in the last week");
-        } else if (tem.getId() != sorted.get(0).getId()){
+        } else if ((sorted.size() > 0) && (tem.getId() != sorted.get(0).getId())){
             sorted.add(tem);
             usageList.remove(tem);
         }
@@ -83,7 +83,7 @@ public class SortingUtil {
         tem = DBUtil.getLastWeekMostSelectedPayment();
         if (tem == null) {
             Log.d(TAG, "RecommendSorting: could not find the most time used payment in the last week");
-        } else if (tem.getId() != sorted.get(0).getId()){
+        } else if ((sorted.size() > 0) && (tem.getId() != sorted.get(0).getId())){
             sorted.add(tem);
             paymentList.remove(tem);
         }
