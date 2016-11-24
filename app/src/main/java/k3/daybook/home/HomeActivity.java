@@ -12,6 +12,7 @@ import android.widget.TextView;
 import k3.daybook.R;
 import k3.daybook.data.constant.GlobalConfig;
 import k3.daybook.data.manager.AccountManager;
+import k3.daybook.data.manager.RecordManager;
 import k3.daybook.home.adapter.RecentlyAdapter;
 import k3.daybook.home.presenter.HomePresenter;
 import k3.daybook.home.view.HomeViews;
@@ -48,6 +49,9 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume: -----------------");
+        initData();
+        RecordManager.refreshData();
+        mAdapter.notifyDataSetChanged();
     }
 
     private void initData() {

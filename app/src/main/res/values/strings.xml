@@ -25,6 +25,7 @@
     <string name="tv_analyze_amount">金额</string>
     <string name="tv_analyze_usage">用途</string>
     <string name="tv_analyze_payment">支付方式</string>
+    <string name="btn_analyze_clear">清空记录</string>
 
     <!-- Recording Page -->
     <string name="btn_recording_cancel">取消</string>

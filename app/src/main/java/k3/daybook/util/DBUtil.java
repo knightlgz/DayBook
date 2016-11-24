@@ -299,6 +299,28 @@ public class DBUtil {
     }
 
     /**
+     * CLEAR
+     */
+    public static void clearRecords() {
+        Realm.getDefaultInstance().executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.delete(Record.class);
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                Log.d(TAG, "onError: clear records failed");
+            }
+        });
+    }
+
+    /**
      * Appender
      */
     public static void addPayment(final Payment payment) {
@@ -333,8 +355,15 @@ public class DBUtil {
      */
     @Nullable
     public static Usage getLastSelectedUsage() {
-        String name = Realm.getDefaultInstance().where(Record.class)
-                .findAllSorted(KEY_ID, Sort.DESCENDING).get(0).getUsageName();
+        List<Record> recordList = Realm.getDefaultInstance().where(Record.class)
+                .findAllSorted(KEY_ID, Sort.DESCENDING);
+
+        if (recordList.size() == 0) {
+            Log.d(TAG, "getLastSelectedUsage: no records");
+            return null;
+        }
+
+        String name = recordList.get(0).getUsageName();
         Log.d(TAG, "getLastSelectedUsage: the last selected usage is: " + name);
         Usage result = Realm.getDefaultInstance().where(Usage.class).equalTo(KEY_NAME, name)
                 .findFirst();
@@ -349,8 +378,15 @@ public class DBUtil {
 
     @Nullable
     public static Payment getLastSelectedPayment() {
-        String name = Realm.getDefaultInstance().where(Record.class)
-                .findAllSorted(KEY_ID, Sort.DESCENDING).get(0).getPaymentName();
+        List<Record> recordList = Realm.getDefaultInstance().where(Record.class)
+                .findAllSorted(KEY_ID, Sort.DESCENDING);
+
+        if (recordList.size() == 0) {
+            Log.d(TAG, "getLastSelectedPayment: norecords");
+            return null;
+        }
+
+        String name = recordList.get(0).getPaymentName();
         Log.d(TAG, "getLastSelectedPayment: the last selected usage is: " + name);
         Payment result = Realm.getDefaultInstance().where(Payment.class).equalTo(KEY_NAME, name)
                 .findFirst();
@@ -440,6 +476,7 @@ public class DBUtil {
             Log.d(TAG, "getConsumedBudgetOfLastPeriod: no data for last period");
             return 0;
         }
+        Log.d(TAG, "getConsumedBudgetOfLastPeriod: " + result.floatValue());
         return result.floatValue();
     }
 

@@ -18,7 +18,7 @@ public class RecordManager {
     private RecordManager() {
         if (sRecords == null) {
             sRecords = new ArrayList<>();
-            initData();
+            refreshData();
         }
     }
 
@@ -33,7 +33,7 @@ public class RecordManager {
         return sInstance;
     }
 
-    private static void initData() {
+    public static void refreshData() {
         sRecords = DBUtil.getRecords();
     }
 

@@ -31,8 +31,8 @@ public class TimeUtil {
     public static String convertYMD(long dateStamp) {
         Date date = new Date(dateStamp);
         mCalendar.setTime(date);
-        return mCalendar.get(Calendar.YEAR) + "/" + mCalendar.get(Calendar.MONTH) + "/"
-                + mCalendar.get(Calendar.DATE);
+        return mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/"
+                + mCalendar.get(Calendar.DAY_OF_MONTH);
     }
 
     public static long lastAccountingDay(int day) {
@@ -40,13 +40,17 @@ public class TimeUtil {
         mCalendar.setTime(now);
         int year = mCalendar.get(Calendar.YEAR);
         int month = mCalendar.get(Calendar.MONTH);
-        if (month == 1) {
-            month = 12;
-            year -= 1;
-        } else {
-            month -= 1;
+        int today = mCalendar.get(Calendar.DAY_OF_MONTH);
+        if (today < day) {
+            if (month == 0) {
+                month = 11;
+                year -= 1;
+            } else {
+                month -= 1;
+            }
         }
-        Date lastAccountingDay = new Date(year, month, day);
+        mCalendar.set(year, month, day);
+        Date lastAccountingDay = mCalendar.getTime();
         return lastAccountingDay.getTime();
     }
 }
