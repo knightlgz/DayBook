@@ -25,10 +25,17 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     public void setFooterView(View footerView) {
         mFooterView = footerView;
+
+        if (getItemCount() <= GlobalConfig.LIMIT_PAYMENTS_SIZE) {
+            mFooterView.findViewById(R.id.tv_footer_append).setVisibility(View.VISIBLE);
+        } else {
+            mFooterView.findViewById(R.id.tv_footer_append).setVisibility(View.GONE);
+        }
+
         mFooterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final TextView BtnAdd = (TextView) v.findViewById(R.id.tv_footer_append);
+                TextView BtnAdd = (TextView) v.findViewById(R.id.tv_footer_append);
                 BtnAdd.setVisibility(View.GONE);
                 final EditText newPayment = (EditText) v.findViewById(R.id.et_setting_add);
                 newPayment.setVisibility(View.VISIBLE);
@@ -38,11 +45,6 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
                     @Override
                     public void onClick(View v) {
                         AccountManager.getInstance().addPayment(newPayment.getText().toString());
-                        if (getItemCount() <= GlobalConfig.LIMIT_PAYMENTS_SIZE) {
-                            BtnAdd.setVisibility(View.VISIBLE);
-                        } else {
-                            BtnAdd.setVisibility(View.GONE);
-                        }
                         newPayment.setText("");
                         newPayment.setVisibility(View.GONE);
                         BtnSave.setVisibility(View.GONE);

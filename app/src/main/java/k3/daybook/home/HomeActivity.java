@@ -237,6 +237,7 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
         mRecord.setUsageName(AccountManager.getInstance().getUsageNameByIndex(usageIndex));
         mRecord.setPaymentName(AccountManager.getInstance().getPaymentNameByIndex(paymentIndex));
         RecordManager.getInstance().addRecord(mRecord);
+
         mRecord = null;
         mInOut.setChecked(false);
         mAmount.setText("");
@@ -246,6 +247,10 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
         for (RadioButton payment : mPayment) {
             payment.setChecked(false);
         }
+
+        AccountManager.getInstance().refreshUsageNPayment();
+        makeupUsages();
+        makeupPayments();
     }
 
     @Override

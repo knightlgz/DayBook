@@ -1,7 +1,5 @@
 package k3.daybook.data.model;
 
-import java.util.Date;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import k3.daybook.util.DBUtil;

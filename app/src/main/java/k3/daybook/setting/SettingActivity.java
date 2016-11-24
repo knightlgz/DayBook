@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import k3.daybook.R;
 import k3.daybook.data.manager.AccountManager;
+import k3.daybook.data.model.Account;
 import k3.daybook.setting.adapter.DividerItemDecoration;
 import k3.daybook.setting.adapter.PaymentAdapter;
 import k3.daybook.setting.adapter.UsageAdapter;
@@ -20,6 +21,8 @@ import k3.daybook.setting.adapter.UsageAdapter;
 public class SettingActivity extends Activity {
 
     private final String TAG = "SettingActivity";
+
+    private Account mAccount;
 
     private EditText etBudget, etPeriodDate;
     private RecyclerView lvUsage, lvPayment;
@@ -42,6 +45,7 @@ public class SettingActivity extends Activity {
     private void initData() {
         mPaymentAdapter = new PaymentAdapter();
         mUsageAdapter = new UsageAdapter();
+        mAccount = new Account();
     }
 
     private void initView() {
@@ -86,8 +90,7 @@ public class SettingActivity extends Activity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                AccountManager.getInstance().resetBudget(
-                        Float.parseFloat(etBudget.getText().toString()));
+                mAccount.setBudget(Float.parseFloat(etBudget.getText().toString()));
             }
         });
 
@@ -112,8 +115,7 @@ public class SettingActivity extends Activity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                AccountManager.getInstance().resetDate(
-                        Integer.parseInt(etPeriodDate.getText().toString()));
+                mAccount.setPeriodDate(Integer.parseInt(etPeriodDate.getText().toString()));
             }
         });
     }
@@ -143,6 +145,8 @@ public class SettingActivity extends Activity {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause: -----------------");
+        AccountManager.getInstance().resetBudget(mAccount.getBudget());
+        AccountManager.getInstance().resetDate(mAccount.getPeriodDate());
         AccountManager.getInstance().storeDataToDB();
     }
 

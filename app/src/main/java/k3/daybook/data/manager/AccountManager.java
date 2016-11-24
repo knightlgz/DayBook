@@ -43,7 +43,7 @@ public class AccountManager {
         sPayments.clear();
         sPayments.addAll(DBUtil.getPayments());
 
-        makeupAccount();
+        refreshUsageNPayment();
 
         Log.d(TAG, "AccountManager: Data Initialized: " + sAccount + "\n" + sUsages + "\n"
                 + sPayments);
@@ -60,7 +60,7 @@ public class AccountManager {
         return sInstance;
     }
 
-    private void makeupAccount() {
+    public void refreshUsageNPayment() {
         SortingUtil.RecommendSortingUsage(sUsages);
         SortingUtil.RecommendSortingPayment(sPayments);
     }
