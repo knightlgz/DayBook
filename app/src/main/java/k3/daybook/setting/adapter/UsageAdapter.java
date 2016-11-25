@@ -35,6 +35,7 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.UsageHolder>
             public void onClick(View v) {
                 BtnAdd.setVisibility(View.GONE);
                 newUsage.setVisibility(View.VISIBLE);
+                newUsage.requestFocus();
                 BtnSave.setVisibility(View.VISIBLE);
             }
         });
@@ -112,6 +113,9 @@ public class UsageAdapter extends RecyclerView.Adapter<UsageAdapter.UsageHolder>
                 public void onClick(View v) {
                     AccountManager.getInstance().renameUsageByIndex(
                             holder.mUsageName.getText().toString(), position);
+                    holder.mUsageStore.setVisibility(View.GONE);
+                    holder.mUsageDelete.setVisibility(View.VISIBLE);
+                    holder.mUsageName.clearFocus();
                 }
             });
         } else if (getItemViewType(position) == TYPE_FOOTER) {

@@ -480,4 +480,52 @@ public class DBUtil {
         return result.floatValue();
     }
 
+    /**
+     * Conditional update
+     */
+    public static void updateRecordsWithUsageChanging(final String oldName, final String newName) {
+        Realm.getDefaultInstance().executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                List<Record> recordList = realm.where(Record.class)
+                        .equalTo(KEY_USAGE_NAME, oldName).findAll();
+                for (Record record : recordList) {
+                    record.setUsageName(newName);
+                }
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                Log.d(TAG, "onError: updateRecordsWithUsageChanging failed");
+            }
+        });
+    }
+
+    public static void updateRecordsWithPaymentChanging(final String oldName, final String newName) {
+        Realm.getDefaultInstance().executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                List<Record> recordList = realm.where(Record.class)
+                        .equalTo(KEY_PAYMENT_NAME, oldName).findAll();
+                for (Record record : recordList) {
+                    record.setPaymentName(newName);
+                }
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                Log.d(TAG, "onError: updateRecordsWithPaymentChanging failed");
+            }
+        });
+    }
 }

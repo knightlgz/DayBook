@@ -86,10 +86,12 @@ public class AccountManager {
     }
 
     public void renameUsageByIndex(String newName, int index) {
+        DBUtil.updateRecordsWithUsageChanging(sUsages.get(index).getName(), newName);
         sUsages.get(index).renameUsage(newName);
     }
 
     public void renamePaymentByIndex(String newName, int index) {
+        DBUtil.updateRecordsWithPaymentChanging(sPayments.get(index).getName(), newName);
         sPayments.get(index).rename(newName);
     }
 

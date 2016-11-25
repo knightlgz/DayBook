@@ -35,6 +35,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentH
             public void onClick(View v) {
                 BtnAdd.setVisibility(View.GONE);
                 newPayment.setVisibility(View.VISIBLE);
+                newPayment.requestFocus();
                 BtnSave.setVisibility(View.VISIBLE);
             }
         });
@@ -111,6 +112,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentH
                 public void onClick(View v) {
                     AccountManager.getInstance().renamePaymentByIndex(
                             holder.mPaymentName.getText().toString(), position);
+                    holder.mPaymentStore.setVisibility(View.GONE);
+                    holder.mPaymentDelete.setVisibility(View.VISIBLE);
+                    holder.mPaymentName.clearFocus();
                 }
             });
         } else if (getItemViewType(position) == TYPE_FOOTER) {
