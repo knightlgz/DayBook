@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.Switch;
 
 import k3.daybook.R;
+import k3.daybook.data.constant.GlobalConfig;
 import k3.daybook.data.manager.AccountManager;
 import k3.daybook.data.manager.RecordManager;
 import k3.daybook.data.model.Record;
@@ -54,8 +55,8 @@ public class RecordingActivity extends Activity implements RecordingView, View.O
         isGain = false;
         isPaymentSetChanged = false;
         isUsageSetChanged = false;
-        usageIndex = 0;
-        paymentIndex = 0;
+        usageIndex = -1;
+        paymentIndex = -1;
     }
 
     private void initView() {
@@ -185,8 +186,16 @@ public class RecordingActivity extends Activity implements RecordingView, View.O
         mRecord = new Record();
         mRecord.setAmount(isGain ? 0 - Float.parseFloat(mAmount.getText().toString()) : Float
                 .parseFloat(mAmount.getText().toString()));
-        mRecord.setUsageName(AccountManager.getInstance().getUsageNameByIndex(usageIndex));
-        mRecord.setPaymentName(AccountManager.getInstance().getPaymentNameByIndex(paymentIndex));
+        if (usageIndex < 0) {
+            mRecord.setUsageName(GlobalConfig.DEFAULT_USAGE);
+        } else {
+            mRecord.setUsageName(AccountManager.getInstance().getUsageNameByIndex(usageIndex));
+        }
+        if (paymentIndex < 0) {
+            mRecord.setPaymentName(GlobalConfig.DEFAULT_PAYMENT);
+        } else {
+            mRecord.setPaymentName(AccountManager.getInstance().getPaymentNameByIndex(paymentIndex));
+        }
         RecordManager.getInstance().addRecord(mRecord);
 
         mRecord = null;
@@ -198,6 +207,8 @@ public class RecordingActivity extends Activity implements RecordingView, View.O
         for (RadioButton payment : mPayment) {
             payment.setChecked(false);
         }
+        usageIndex = -1;
+        paymentIndex = -1;
 
         AccountManager.getInstance().refreshUsageNPayment();
         makeupUsages();

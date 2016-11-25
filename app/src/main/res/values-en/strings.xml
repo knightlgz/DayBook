@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DayBook</string>
-    <string name="common_submit">Submit</string>
     <string name="db_name">k3daybook</string>
+    <string name="default_usage">Unknown</string>
+    <string name="default_payment">Unknown</string>
 
     <!-- Home Page -->
     <string name="home_analyze">Analyze</string>
     <string name="home_setting">Setting</string>
+    <string name="tv_home_rest_budget">Rest Budget: </string>
+    <string name="tv_home_past_budget">Already Spend: </string>
+    <string name="tv_home_recent_payout">Recent Records</string>
 
     <!-- Setting Page -->
     <string name="tv_setting_budget">Budget/Month: </string>
@@ -23,6 +27,7 @@
     <string name="tv_analyze_amount">Amount</string>
     <string name="tv_analyze_usage">Usage</string>
     <string name="tv_analyze_payment">Payment</string>
+    <string name="btn_analyze_clear">Clear</string>
 
     <!-- Recording Page -->
     <string name="btn_recording_cancel">Cancel</string>

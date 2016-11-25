@@ -16,8 +16,8 @@ public class DaybookApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        GlobalConfig.init(this);
         ContextProvider.initIfNotYet(this);
+        GlobalConfig.init(this);
         DBUtil.initRealm();
     }
 

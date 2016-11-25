@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">流水账</string>
-    <string name="common_submit">提交</string>
     <string name="db_name">k3daybook</string>
+    <string name="default_usage">未知</string>
+    <string name="default_payment">未知</string>
 
     <!-- Home Page -->
     <string name="home_analyze">分析</string>
