@@ -58,27 +58,27 @@
             <RadioButton
                 android:id="@+id/recording_usage_1"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_setting_item"/>
+                android:layout_height="@dimen/height_list_item"/>
 
             <RadioButton
                 android:id="@+id/recording_usage_2"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_setting_item"/>
+                android:layout_height="@dimen/height_list_item"/>
 
             <RadioButton
                 android:id="@+id/recording_usage_3"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_setting_item"/>
+                android:layout_height="@dimen/height_list_item"/>
 
             <RadioButton
                 android:id="@+id/recording_usage_4"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_setting_item"/>
+                android:layout_height="@dimen/height_list_item"/>
 
             <RadioButton
                 android:id="@+id/recording_usage_5"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_setting_item"/>
+                android:layout_height="@dimen/height_list_item"/>
 
             <Button
                 android:id="@+id/another_usage_page"
@@ -107,27 +107,27 @@
             <RadioButton
                 android:id="@+id/recording_payment_1"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_setting_item"/>
+                android:layout_height="@dimen/height_list_item"/>
 
             <RadioButton
                 android:id="@+id/recording_payment_2"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_setting_item"/>
+                android:layout_height="@dimen/height_list_item"/>
 
             <RadioButton
                 android:id="@+id/recording_payment_3"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_setting_item"/>
+                android:layout_height="@dimen/height_list_item"/>
 
             <RadioButton
                 android:id="@+id/recording_payment_4"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_setting_item"/>
+                android:layout_height="@dimen/height_list_item"/>
 
             <RadioButton
                 android:id="@+id/recording_payment_5"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_setting_item"/>
+                android:layout_height="@dimen/height_list_item"/>
 
             <Button
                 android:id="@+id/another_payment_page"

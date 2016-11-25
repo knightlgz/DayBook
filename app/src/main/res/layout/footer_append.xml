@@ -7,7 +7,7 @@
     <TextView
         android:id="@+id/tv_footer_append"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_setting_item"
+        android:layout_height="@dimen/height_list_item"
         android:gravity="center"
         android:text="@string/tv_setting_add_more"/>
 
@@ -28,8 +28,8 @@
 
         <ImageView
             android:id="@+id/iv_setting_save"
-            android:layout_width="@dimen/height_setting_item"
-            android:layout_height="@dimen/height_setting_item"
+            android:layout_width="@dimen/height_list_item"
+            android:layout_height="@dimen/height_list_item"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/ic_save"
             android:visibility="gone"/>

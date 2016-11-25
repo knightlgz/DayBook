@@ -11,7 +11,7 @@
     <dimen name="margin_left_text">16dp</dimen>
 
     <dimen name="height_text_display">42dp</dimen>
-    <dimen name="height_setting_item">36dp</dimen>
+    <dimen name="height_list_item">36dp</dimen>
 
     <dimen name="size_text_display">16dp</dimen>
 
