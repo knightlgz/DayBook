@@ -1,56 +1,32 @@
 package k3.daybook.analyze;
 
-import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import k3.daybook.R;
-import k3.daybook.analyze.adapter.RecordsAdapter;
-import k3.daybook.data.manager.RecordManager;
-import k3.daybook.setting.adapter.DividerItemDecoration;
-import k3.daybook.util.DBUtil;
+import k3.daybook.analyze.fragment.RecordListFragment;
 
-public class AnalyzeActivity extends Activity {
+public class AnalyzeActivity extends FragmentActivity {
 
     private static final String TAG = "AnalyzeActivity";
 
-    private RecyclerView rvRecords;
-    private Button btnClear;
-
-    private RecordsAdapter mAdapter;
+    private RecordListFragment mRecordListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analyze);
 
-        initData();
-        initView();
+        setDefaultFragment();
     }
 
-    private void initData() {
-        mAdapter = new RecordsAdapter();
-    }
-
-    private void initView() {
-        rvRecords = (RecyclerView) findViewById(R.id.analyze_record_list);
-        rvRecords.setLayoutManager(new LinearLayoutManager(this));
-        rvRecords.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL_LIST));
-        rvRecords.setAdapter(mAdapter);
-
-        btnClear = (Button) findViewById(R.id.analyze_clear);
-        btnClear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DBUtil.clearRecords();
-                RecordManager.refreshData();
-                mAdapter.notifyDataSetChanged();
-            }
-        });
+    private void setDefaultFragment() {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        mRecordListFragment = new RecordListFragment();
+        transaction.replace(R.id.analyze_fragment_field, mRecordListFragment);
+        transaction.commit();
     }
 }
