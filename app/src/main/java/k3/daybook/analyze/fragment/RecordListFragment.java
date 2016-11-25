@@ -1,9 +1,7 @@
 package k3.daybook.analyze.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,15 +15,7 @@ import k3.daybook.data.manager.RecordManager;
 import k3.daybook.setting.adapter.DividerItemDecoration;
 import k3.daybook.util.DBUtil;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link RecordListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link RecordListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class RecordListFragment extends Fragment {
+public class RecordListFragment extends android.app.Fragment {
 
     private RecyclerView rvRecords;
     private Button btnClear;
@@ -81,7 +71,7 @@ public class RecordListFragment extends Fragment {
             public void onClick(View v) {
                 DBUtil.clearRecords();
                 RecordManager.refreshData();
-                mAdapter.notifyDataSetChanged();
+                rvRecords.getAdapter().notifyDataSetChanged();
             }
         });
     }
