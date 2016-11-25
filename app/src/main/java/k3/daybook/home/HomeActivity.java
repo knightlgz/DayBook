@@ -50,8 +50,7 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
         super.onResume();
         Log.d(TAG, "onResume: -----------------");
         initData();
-        RecordManager.refreshData();
-        mAdapter.notifyDataSetChanged();
+        refreshView();
     }
 
     private void initData() {
@@ -90,6 +89,21 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
 
     private void initPresenter() {
         mPresenter = new HomePresenter();
+    }
+
+    private void refreshView() {
+        mTvRestBudget.setText(String.valueOf(wholeBudget - consumedBudget));
+        if (consumedBudget >= wholeBudget * GlobalConfig.BUDGET_DANGER) {
+            mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_alarm));
+        } else if (consumedBudget >= wholeBudget * GlobalConfig.BUDGET_FRIENDLY) {
+            mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_caution));
+        } else {
+            mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_friendly));
+        }
+        mTvPastBudget.setText(String.valueOf(consumedBudget));
+
+        RecordManager.refreshData();
+        rvRecentlyPayout.getAdapter().notifyDataSetChanged();
     }
 
     @Override

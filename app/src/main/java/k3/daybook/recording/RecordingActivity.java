@@ -202,6 +202,7 @@ public class RecordingActivity extends Activity implements RecordingView, View.O
         AccountManager.getInstance().refreshUsageNPayment();
         makeupUsages();
         makeupPayments();
+        finish();
     }
 
     @Override
