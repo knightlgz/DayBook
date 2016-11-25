@@ -11,6 +11,7 @@
     <string name="tv_home_rest_budget">Rest Budget: </string>
     <string name="tv_home_past_budget">Already Spend: </string>
     <string name="tv_home_recent_payout">Recent Records</string>
+    <string name="home_budget_unset">Budget Unset</string>
 
     <!-- Setting Page -->
     <string name="tv_setting_budget">Budget/Month: </string>

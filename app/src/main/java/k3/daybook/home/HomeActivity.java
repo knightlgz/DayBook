@@ -67,13 +67,17 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
         mTvPastBudget = (TextView) findViewById(R.id.home_past_budget);
         rvRecentlyPayout = (RecyclerView) findViewById(R.id.rv_home_recent_records);
 
-        mTvRestBudget.setText(String.valueOf(wholeBudget - consumedBudget));
-        if (consumedBudget >= wholeBudget * GlobalConfig.BUDGET_DANGER) {
-            mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_alarm));
-        } else if (consumedBudget >= wholeBudget * GlobalConfig.BUDGET_FRIENDLY) {
-            mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_caution));
+        if (wholeBudget == 0) {
+            mTvRestBudget.setText(R.string.home_budget_unset);
         } else {
-            mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_friendly));
+            mTvRestBudget.setText(String.valueOf(wholeBudget - consumedBudget));
+            if (consumedBudget >= wholeBudget * GlobalConfig.BUDGET_DANGER) {
+                mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_alarm));
+            } else if (consumedBudget >= wholeBudget * GlobalConfig.BUDGET_FRIENDLY) {
+                mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_caution));
+            } else {
+                mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_friendly));
+            }
         }
         mTvPastBudget.setText(String.valueOf(consumedBudget));
 
@@ -92,13 +96,17 @@ public class HomeActivity extends Activity implements HomeViews, View.OnClickLis
     }
 
     private void refreshView() {
-        mTvRestBudget.setText(String.valueOf(wholeBudget - consumedBudget));
-        if (consumedBudget >= wholeBudget * GlobalConfig.BUDGET_DANGER) {
-            mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_alarm));
-        } else if (consumedBudget >= wholeBudget * GlobalConfig.BUDGET_FRIENDLY) {
-            mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_caution));
+        if (wholeBudget == 0) {
+            mTvRestBudget.setText(R.string.home_budget_unset);
         } else {
-            mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_friendly));
+            mTvRestBudget.setText(String.valueOf(wholeBudget - consumedBudget));
+            if (consumedBudget >= wholeBudget * GlobalConfig.BUDGET_DANGER) {
+                mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_alarm));
+            } else if (consumedBudget >= wholeBudget * GlobalConfig.BUDGET_FRIENDLY) {
+                mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_caution));
+            } else {
+                mTvRestBudget.setTextColor(getResources().getColor(R.color.color_rest_budget_friendly));
+            }
         }
         mTvPastBudget.setText(String.valueOf(consumedBudget));
 

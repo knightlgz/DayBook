@@ -91,6 +91,10 @@ public class SettingActivity extends Activity {
                     etBudget.setCursorVisible(true);
                 } else {
                     etBudget.setCursorVisible(false);
+                    if (etBudget.getText().length() == 0) {
+                        mAccount.setBudget(0);
+                        return;
+                    }
                     mAccount.setBudget(Float.parseFloat(etBudget.getText().toString()));
                 }
             }
@@ -103,6 +107,10 @@ public class SettingActivity extends Activity {
                     etPeriodDate.setCursorVisible(true);
                 } else {
                     etPeriodDate.setCursorVisible(false);
+                    if (etPeriodDate.getText().length() == 0) {
+                        mAccount.setPeriodDate(1);
+                        return;
+                    }
                     mAccount.setPeriodDate(Integer.parseInt(etPeriodDate.getText().toString()));
                 }
             }

@@ -10,6 +10,7 @@
     <string name="tv_home_rest_budget">剩余预算: </string>
     <string name="tv_home_past_budget">已经消费: </string>
     <string name="tv_home_recent_payout">最近几条消费记录</string>
+    <string name="home_budget_unset">预算未设置</string>
 
     <!-- Setting Page -->
     <string name="tv_setting_budget">每月预算: </string>
