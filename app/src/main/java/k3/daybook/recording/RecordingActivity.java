@@ -9,6 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import k3.daybook.R;
 import k3.daybook.data.constant.GlobalConfig;
@@ -184,6 +185,10 @@ public class RecordingActivity extends Activity implements RecordingView, View.O
     @Override
     public void confirmAdd() {
         mRecord = new Record();
+        if (mAmount.getText().length() == 0) {
+            Toast.makeText(this, R.string.toast_amount_needed, Toast.LENGTH_SHORT).show();
+            return;
+        }
         mRecord.setAmount(isGain ? 0 - Float.parseFloat(mAmount.getText().toString()) : Float
                 .parseFloat(mAmount.getText().toString()));
         if (usageIndex < 0) {

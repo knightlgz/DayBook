@@ -37,8 +37,6 @@
     <string name="recording_another_page">换一组</string>
     <string name="recording_usage">用途</string>
     <string name="recording_payment">支付方式</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="toast_amount_needed">请输入金额</string>
 
 </resources>

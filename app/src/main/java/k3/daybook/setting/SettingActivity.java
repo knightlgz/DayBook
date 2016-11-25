@@ -91,21 +91,8 @@ public class SettingActivity extends Activity {
                     etBudget.setCursorVisible(true);
                 } else {
                     etBudget.setCursorVisible(false);
+                    mAccount.setBudget(Float.parseFloat(etBudget.getText().toString()));
                 }
-            }
-        });
-        etBudget.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mAccount.setBudget(Float.parseFloat(etBudget.getText().toString()));
             }
         });
 
@@ -116,21 +103,8 @@ public class SettingActivity extends Activity {
                     etPeriodDate.setCursorVisible(true);
                 } else {
                     etPeriodDate.setCursorVisible(false);
+                    mAccount.setPeriodDate(Integer.parseInt(etPeriodDate.getText().toString()));
                 }
-            }
-        });
-        etPeriodDate.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mAccount.setPeriodDate(Integer.parseInt(etPeriodDate.getText().toString()));
             }
         });
 
@@ -161,6 +135,8 @@ public class SettingActivity extends Activity {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause: -----------------");
+        etBudget.clearFocus();
+        etPeriodDate.clearFocus();
         AccountManager.getInstance().resetBudget(mAccount.getBudget());
         AccountManager.getInstance().resetDate(mAccount.getPeriodDate());
         AccountManager.getInstance().storeDataToDB();

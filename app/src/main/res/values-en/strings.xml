@@ -38,5 +38,6 @@
     <string name="recording_another_page">another set</string>
     <string name="recording_usage">Usage</string>
     <string name="recording_payment">Payment</string>
+    <string name="toast_amount_needed">Input Amount Please</string>
 
 </resources>
