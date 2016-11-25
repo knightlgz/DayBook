@@ -30,6 +30,10 @@ public class Payment extends RealmObject {
         name = title;
     }
 
+    public void utilized() {
+        times += 1;
+    }
+
     public long getId() {
         return id;
     }

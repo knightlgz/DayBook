@@ -346,6 +346,16 @@ public class DBUtil {
             @Override
             public void execute(Realm realm) {
                 Realm.getDefaultInstance().insertOrUpdate(record);
+                Usage usage = realm.where(Usage.class).equalTo(KEY_NAME, record.getUsageName())
+                        .findFirst();
+                if (usage != null) {
+                    usage.utilized();
+                }
+                Payment payment = realm.where(Payment.class)
+                        .equalTo(KEY_NAME, record.getPaymentName()).findFirst();
+                if (payment != null) {
+                    payment.utilized();
+                }
             }
         });
     }

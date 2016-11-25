@@ -35,6 +35,10 @@ public class Usage extends RealmObject{
         this.name = name;
     }
 
+    public void utilized() {
+        times += 1;
+    }
+
     public long getId() {
         return id;
     }
